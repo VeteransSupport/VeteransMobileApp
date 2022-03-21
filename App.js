@@ -5,7 +5,10 @@ import {
   View,
 } from "react-native";
 import Home from "./components/home/Home";
- 
+import SignUp from "./components/signUp/SignUp";
+import SelectCharity from "./components/selectCharity/SelectCharity";
+import NominatedContacts from "./components/nominatedContacts/NominatedContacts";
+
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
