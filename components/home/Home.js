@@ -11,8 +11,8 @@ class Home extends React.Component {
     super(props);
     this.state = {
       authenticated: false,
-      email: 'user@example.com',
-      password: 'KLcXUsn990',
+      email: '',
+      password: '',
       removeUser: false,
       signup: false
     }
