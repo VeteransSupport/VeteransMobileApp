@@ -29,10 +29,10 @@ class Logout extends React.Component {
     // const [password, setPassword] = useState("");
     return (
       <View style={styles.container}>
-        <TouchableOpacity style={styles.logoutBtn}>
-          <Text
-            style={styles.logoutText}
-            onClick={this.props.handleLogoutClick}>
+        <TouchableOpacity
+          style={styles.logoutBtn}
+          onPress={this.props.handleLogoutClick}>
+          <Text style={styles.logoutText}>
             LOGOUT
           </Text>
         </TouchableOpacity>
@@ -44,24 +44,25 @@ class Logout extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    // To center horizontally on screen
+    width: '60%',
+    left: '20%',
   },
 
   logoutText: {
-      color: "#000"
+    color: '#fff',
   },
 
   logoutBtn: {
-    width: "80%",
-    borderRadius: 25,
+    width: '80%',
+    borderRadius: 5,
     height: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 40,
-    backgroundColor: "#FF1493",
+    backgroundColor: '#000',
   },
 });
 
