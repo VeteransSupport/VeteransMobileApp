@@ -16,7 +16,6 @@ class Login extends React.Component {
       email: '',
       password: '',
       authenticated: false,
-      token: 'this is the tokennnnnn'
     }
   }
 
