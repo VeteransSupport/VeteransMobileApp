@@ -1,7 +1,10 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import Login from '../login/Login';
-import Logout from '../logout/LogOut';
+import { StyleSheet, Text, View, Alert, Image, } from 'react-native';
+
+import Login from "../login/Login";
+import Logout from "../logout/Logout";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class Home extends React.Component {
   constructor(props) {
@@ -11,8 +14,7 @@ class Home extends React.Component {
       email: '',
       password: '',
       removeUser: false,
-      signup: false,
-      token: null
+      signup: false
     }
 
     this.handleEmail = this.handleEmail.bind(this);
@@ -21,27 +23,58 @@ class Home extends React.Component {
     this.handleLogoutClick = this.handleLogoutClick.bind(this);
   }
 
-  componentDidMount() {
-    if (localStorage.getItem('loginToken')) {
-      // this.setState({ authenticated: true, token: localStorage.getItem('loginToken') })
-      this.setState({ authenticated: true })
-      // TODO: Get token from async storage
+  async componentDidMount() {
+    this._retrieveData('token');
+  }
+
+  _retrieveData = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        this.setState({ authenticated: true })
+      }
+    } catch (e) {
+      console.log('Cound not store token in AsyncStorage: ' + e);
+      Alert.alert('Error getting token', 'Could not retrieve session token.');
     }
   }
 
-  handleEmail = (e) => {
-    this.setState({ email: e.target.value });
-    console.log(this.state.email);
+  _storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(
+        key,
+        value
+      );
+    } catch (e) {
+      console.log('Error storing token in AsyncStorage: ' + e);
+      Alert.alert('Error logging in', 'Could not store session token.');
+    }
+
+    console.log('User logged in')
+  };
+
+  clearAllAsyncStorage = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      console.log('Could not clear AsyncStorage: ' + e);
+      Alert.alert('Error logging out', 'Could not clear session token.');
+    }
+
+    console.log('User logged out')
   }
 
-  handlePassword = (e) => {
-    this.setState({ password: e.target.value });
-    console.log(this.state.password);
+  handleEmail = (text) => {
+    this.setState({ email: text });
+  }
+
+  handlePassword = (text) => {
+    this.setState({ password: text });
   }
 
   handleLogoutClick = () => {
-    this.setState({ authenticated: false, token: null, email: '', password: '' });
-    // localStorage.removeItem('loginToken');
+    this.clearAllAsyncStorage();
+    this.setState({ authenticated: false, email: '', password: '' });
   }
 
   handleLoginClick = async () => {
@@ -65,25 +98,23 @@ class Home extends React.Component {
         }
       })
       .then((data) => {
-        // If results include a token, change state
-        // to authenticated
+        // If results include a token,
+        // store token and change state to authenticated
         if ("token" in data.results) {
-          // localStorage.setItem('loginToken', data.results.token)
-          // this.setState({ authenticated: true, token: localStorage.getItem('loginToken') })
-          this.setState({ authenticated: true, token: data.results.token })
-          console.log(this.state.token);
+          this._storeData('token', data.results.token);
+          this.setState({ authenticated: true });
         }
       })
       .catch((err) => {
-        console.log("something went wrong ", err)
-        alert('We were unable to sign you in!\n\nPlease check youre username and password and make sure they are correct.')
-        // TODO: change alert to something else
+        // let message 
+        console.log("something went wrong ", err);
+        Alert.alert('We were unable to sign you in!', 'Please check youre username and password and make sure they are correct.');
       })
   }
 
   render() {
     let page = (
-      <Login
+      <Login style={{}}
         handleEmail={this.handleEmail}
         handlePassword={this.handlePassword}
         handleLoginClick={this.handleLoginClick}
@@ -93,23 +124,38 @@ class Home extends React.Component {
     if (this.state.authenticated) {
       page = (
         <View>
-          <Text>Youre logged in!</Text>
           <Logout handleLogoutClick={this.handleLogoutClick} />
+          <Text style={styles.email}>Logged in as: {this.state.email}</Text>
         </View>
       )
     }
 
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
+      <View style={styles.container}>
+        <Image style={styles.image} source={require("../../assets/favicon.png")} />
         {page}
       </View>
     )
   }
-
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+  },
+
+  image: {
+    position: 'absolute',
+    top: '6%',
+    left: '6%',
+    width: 50,
+    height: 50,
+  },
+
+  email: {
+    textAlign: 'center',
+  },
+});
+
 export default Home;

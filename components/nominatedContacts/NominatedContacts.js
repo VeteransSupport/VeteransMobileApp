@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import Login from '../login/Login';
-import Logout from '../logout/LogOut';
+import Logout from '../logout/Logout';
 
 class NominatedContacts extends React.Component {
   constructor(props) {
@@ -12,143 +12,179 @@ class NominatedContacts extends React.Component {
   componentDidMount() {
   }
 
-  render(){
+  render() {
 
     return (
-      <View>
+      <View style={styles.page}>
         <View style={styles.header}>
           <Text style={styles.title}>Sign Up</Text>
+          <Image style={styles.logo} source={require('../../assets/favicon.png')} />
         </View>
-        <View>
-            <Text>Add your nominated contact(s)</Text>
-            
-            <View style={styles.contactsForm}>
-              <View style={styles.contactInfo}>
-                <Text>*1)</Text>
-                <View style={styles.input}>
-                  <Text style={styles.formText}>Name </Text>
-                  <TextInput style={styles.inputField} placeholder='Full Name'/>
-                </View>
-                <View style={styles.input}>
-                  <Text style={styles.formText}>Email </Text>
-                  <TextInput style={styles.inputField} placeholder='Email'/>
-                </View>
-              </View>
+        <View style={styles.body}>
+          <Text>Add your nominated contact(s)</Text>
 
-              <View style={styles.contactInfo}>
-                <Text>2)</Text>
-                <View style={styles.input}>
-                  <Text style={styles.formText}>Name </Text>
-                  <TextInput style={styles.inputField} placeholder='Full Name'/>
-                </View>
-                <View style={styles.input}>
-                  <Text style={styles.formText}>Email </Text>
-                  <TextInput style={styles.inputField} placeholder='Email'/>
-                </View>
+          <View style={styles.contactsForm}>
+            <View style={styles.contactInfo}>
+              <Text>*1)</Text>
+              <View style={styles.input}>
+                <Text style={styles.formText}>Name </Text>
+                <TextInput style={styles.inputField} placeholder='Full Name' />
               </View>
-
-              <View style={styles.contactInfo}>
-                <Text>3)</Text>
-                <View style={styles.input}>
-                  <Text style={styles.formText}>Name </Text>
-                  <TextInput style={styles.inputField} placeholder='Full Name'/>
-                </View>
-                <View style={styles.input}>
-                  <Text style={styles.formText}>Email </Text>
-                  <TextInput style={styles.inputField} placeholder='Email'/>
-                </View>
+              <View style={styles.input}>
+                <Text style={styles.formText}>Email </Text>
+                <TextInput style={styles.inputField} placeholder='Email' />
               </View>
             </View>
 
-            <View>
-              <Text>Add your 6 digit acess code:</Text>
-              <TextInput style={styles.inputField2} placeholder='6 digit code'/>
-              <Text>Your nominated contacts will receive an email reminding them to download the app.</Text>
-              <Text>REMEMBER: You must give them their access code for registration.</Text>
+            <View style={styles.contactInfo}>
+              <Text>2)</Text>
+              <View style={styles.input}>
+                <Text style={styles.formText}>Name </Text>
+                <TextInput style={styles.inputField} placeholder='Full Name' />
+              </View>
+              <View style={styles.input}>
+                <Text style={styles.formText}>Email </Text>
+                <TextInput style={styles.inputField} placeholder='Email' />
+              </View>
             </View>
 
-            <View style={styles.button}>
-              <Button title="Complete registration" color="#1C1C1C"/>
+            <View style={styles.contactInfo}>
+              <Text>3)</Text>
+              <View style={styles.input}>
+                <Text style={styles.formText}>Name </Text>
+                <TextInput style={styles.inputField} placeholder='Full Name' />
+              </View>
+              <View style={styles.input}>
+                <Text style={styles.formText}>Email </Text>
+                <TextInput style={styles.inputField} placeholder='Email' />
+              </View>
             </View>
+          </View>
+
+          <View style={styles.accessCode}>
+            <Text>Add your 6 digit acess code:</Text>
+            <TextInput style={styles.inputField2} placeholder='6 digit code' />
+            <Text>Your nominated contacts will receive an email reminding them to download the app.</Text>
+            <Text>REMEMBER: You must give them their access code for registration.</Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.continueBtn}
+          // onPress={this.props.handleContinueClick} // TODO: need to impliment
+          >
+            <Text
+              style={styles.continueText}>
+              Complete Registration
+            </Text>
+          </TouchableOpacity>
 
         </View>
       </View>
     )
   }
-
 }
 
 const styles = StyleSheet.create({
-  page:{
-    display: "flex",
-    flexWrap: "wrap",
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    writtingDirection: "ltr",
-    AlignItems : "center",
-    margin: 10,
-    padding: 10
-  },
-
-  header:{
+  page: {
     flex: 1,
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width: '80%',
+  },
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    width: '100%',
+    textAlign: 'left',
+  },
+
+  logo: {
+    position: 'absolute',
+    right: 0,
+    top: 50,
+  },
+
+  title: {
+    textAlign: 'center',
+    fontSize: 35,
     margin: 0,
-    marginBottom: 3
+    fontWeight: 'bold',
+    marginTop: 50,
+    marginLeft: 10,
   },
 
-  body:{
-    flex: 1
+  body: {
+    flex: 1,
+    marginTop: 10,
   },
 
-  button:{
+  button: {
     marginTop: 15,
   },
 
-  title:{
-    textAlign: "flex-start",
-    alignSelf: "flex-start",
-    fontSize: 35,
-    margin: 0,
-    marginTop: 20,
-    fontWeight: "bold",
-
+  contactInfo: {
+    marginTop: 10,
   },
 
-  contactInfo:{
-    alignSelf: "center"
+  contactsForm: {
+    alignContent: 'center',
   },
 
-  contactsForm:{
-    alignContent: "center",
+  input: {
+    flexDirection: 'row',
+    marginLeft: '10%',
   },
 
-  inputField:{
-    backgroundColor: "#D3D3D3",
-    alignSelf: "right",
-    fontSize: 16,
-    padding: 2
-  },
-
-  inputField2:{
-    backgroundColor: "#D3D3D3",
-    alignSelf: "center",
+  inputField: {
+    backgroundColor: '#eee',
+    alignSelf: 'flex-start',
     fontSize: 16,
     padding: 2,
-    textAlign: "center"
+    width: '60%',
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#000',
+    marginTop: 10,
   },
 
-  input:{
-    flexDirection: "row",
+  accessCode: {
+    marginTop: 20,
   },
 
-  formText:{
+  inputField2: {
+    backgroundColor: '#eee',
+    alignSelf: 'center',
+    fontSize: 16,
+    padding: 2,
+    borderWidth: 1,
+    borderRadius: 2,
+    borderColor: '#000',
+    textAlign: 'center',
+  },
+
+  formText: {
     width: 50,
   },
 
-  button:{
-    marginTop: 15,
-    width: 200,
-    alignSelf: "center"
-  }
+  continueBtn: {
+    borderRadius: 5,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    color: 'red',
+    backgroundColor: '#000',
+  },
+
+  continueText: {
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+  },
 })
 export default NominatedContacts;
