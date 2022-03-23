@@ -6,7 +6,13 @@ import Logout from '../logout/Logout';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      TnC: false
+    }
+  }
+
+  toggleSwitch = (value) => {
+    this.setState({ TnC: value });
   }
 
   componentDidMount() {
@@ -41,12 +47,12 @@ class SignUp extends React.Component {
             <Text style={styles.formText}>Password: </Text>
             <TextInput style={styles.inputField} placeholder='Password' placeholderTextColor='#aaa' />
           </View>
-          <View>
+          <View style={styles.adjustInline}>
             <Text style={styles.termsAndConditions} onPress={() => Linking.openURL('http://google.com')}>Terms and Conditions</Text>
-            <Switch />
+            <Switch style={styles.toggle} onValueChange={this.toggleSwitch} value={this.state.TnC} />
           </View>
-          <TouchableOpacity
-            style={styles.continueBtn}
+          <TouchableOpacity disabled={!this.state.TnC}
+            style={[this.state.TnC ? styles.continueBtn : styles.continueBtnDisabled]}
           // onPress={this.props.handleContinueClick} // TODO: need to impliment
           >
             <Text
@@ -109,10 +115,20 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 
+  adjustInline: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+
   termsAndConditions: {
     marginTop: 15,
     color: '#03a9f4',
     fontSize: 16,
+  },
+
+  toggle: {
+    marginTop: 15,
+    marginLeft: 10,
   },
 
   form: {
@@ -149,6 +165,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: 'red',
     backgroundColor: '#000',
+  },
+
+  continueBtnDisabled: {
+    width: '50%',
+    borderRadius: 5,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    color: 'red',
+    backgroundColor: '#ccc',
   },
 
   continueText: {
