@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, Image, } from 'react-native';
+import { StyleSheet, Button, TouchableOpacity, Text, View, Alert, Image, } from 'react-native';
 
 import Login from "../login/Login";
 import Logout from "../logout/Logout";
@@ -113,49 +113,116 @@ class Home extends React.Component {
   }
 
   render() {
-    let page = (
-      <Login style={{}}
-        handleEmail={this.handleEmail}
-        handlePassword={this.handlePassword}
-        handleLoginClick={this.handleLoginClick}
-      />
-    )
+    // let page = (
+    //   <Login style={{}}
+    //     handleEmail={this.handleEmail}
+    //     handlePassword={this.handlePassword}
+    //     handleLoginClick={this.handleLoginClick}
+    //   />
+    // )
 
-    if (this.state.authenticated) {
-      page = (
-        <View>
-          <Logout handleLogoutClick={this.handleLogoutClick} />
-          <Text style={styles.email}>Logged in as: {this.state.email}</Text>
-        </View>
-      )
-    }
+    // if (this.state.authenticated) {
+    //   page = (
+    //     <View>
+    //       <Logout handleLogoutClick={this.handleLogoutClick} />
+    //       <Text style={styles.email}>Logged in as: {this.state.email}</Text>
+    //     </View>
+    //   )
+    // }
 
     return (
       <View style={styles.container}>
-        <Image style={styles.image} source={require("../../assets/favicon.png")} />
-        {page}
+
+        <View style={styles.upperHalf}>
+          <View style={styles.urBackUpImage}>
+            <Image source={require('../../assets/urbackupTemporary.png')} />
+          </View>
+          <View style={styles.buttons}>
+            <Button color="black" title="Military" />
+            <Button color="black" title="Nominated Contact" />
+            <Button color="black" title="Charities" />
+          </View>
+        </View>
+
+        <View style={styles.lowerHalf}>
+          <View style={styles.howToButton}>
+            <Button color="black" title="How does this app work?" />
+            <Image style={styles.militaryIcons} source={require('../../assets/militaryIconsTemporary.png')} />
+          </View>
+          <View>
+            <Text style={styles.longInfoText}>This app acts to support military personnel and veterans to access already established mental health services and charities. Therefore, by using the app you do so in the knowledge that we waiver any responsibility for the actions or support of any users.</Text>
+          </View>
+          <TouchableOpacity style={styles.administratorButton}>
+            <Text style={styles.administratorText}>Administrator and Charity Administrators</Text>
+          </TouchableOpacity>
+        </View>
+
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: '100%',
+    height: '100%'
   },
 
-  image: {
-    position: 'absolute',
-    top: '6%',
-    left: '6%',
-    width: 50,
-    height: 50,
+  upperHalf: {
+    width: '100%',
+    height: '50%',
   },
 
-  email: {
-    textAlign: 'center',
+  lowerHalf: {
+    width: '100%',
+    height: '50%',
   },
+
+  urBackUpImage: {
+    width: '25%',
+    height: '25%',
+    marginLeft: 20,
+    marginTop: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  buttons: {
+    width: '100%',
+    height: '70%',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+
+  howToButton: {
+    width: '100%',
+    height: '55%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+
+  militaryIcons: {
+    //empty just in case if resizing of image needed.
+  },
+
+  longInfoText: {
+    color: '#afafaf',
+    paddingLeft: 3,
+  },
+
+  administratorButton: {
+    alignItems: 'center',
+    paddingTop: 20,
+  },
+
+  administratorText: {
+    fontSize: 15,
+    textDecorationLine: 'underline',
+  }
 });
 
 export default Home;
