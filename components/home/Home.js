@@ -112,6 +112,10 @@ class Home extends React.Component {
       })
   }
 
+  navigateToLoginPage = props => {
+      props.navigation.navigate('Login');
+  }
+
   render() {
     // let page = (
     //   <Login style={{}}
@@ -138,7 +142,7 @@ class Home extends React.Component {
             <Image source={require('../../assets/urbackupTemporary.png')} />
           </View>
           <View style={styles.buttons}>
-            <Button color="black" title="Military" />
+            <Button color="black" title="Military" onPress={()=> this.navigateToLoginPage(this.props)}/>
             <Button color="black" title="Nominated Contact" />
             <Button color="black" title="Charities" />
           </View>
