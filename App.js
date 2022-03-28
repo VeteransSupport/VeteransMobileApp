@@ -9,6 +9,7 @@ import Main from './components/main/Main';
 import ChangeDetails from './components/changeDetails/ChangeDetails';
 import Contact from './components/contact/Contact';
 import Login from "./components/login/Login";
+import TrafficLight from './components/trafficLight/TrafficLight';
 
 
 const Drawer = createDrawerNavigator();
@@ -22,6 +23,7 @@ function Root() {
       <Drawer.Screen name="Main" component={Main} />
       <Drawer.Screen name="Change Details" component={ChangeDetails} />
       <Drawer.Screen name="Contact" component={Contact} />
+      <Drawer.Screen name="Welcome" component={TrafficLight}/>
     </Drawer.Navigator>
   );
 }
