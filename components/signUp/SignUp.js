@@ -18,12 +18,22 @@ class SignUp extends React.Component {
   componentDidMount() {
   }
 
+  handleNextClick = props => {
+    props.navigation.navigate('SelectCharity');
+  }
+
+  handleLogoClick = props => {
+      props.navigation.navigate('Home');
+  }
+
   render() {
     return (
       <View style={styles.page}>
         <View style={styles.header}>
           <Text style={styles.title}>Sign Up</Text>
-          <Image style={styles.logo} source={require('../../assets/favicon.png')} />
+          <TouchableOpacity style={styles.logo} onPress={() => this.handleLogoClick(this.props)}>
+            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.form}>
@@ -53,7 +63,7 @@ class SignUp extends React.Component {
           </View>
           <TouchableOpacity disabled={!this.state.TnC}
             style={[this.state.TnC ? styles.continueBtn : styles.continueBtnDisabled]}
-          // onPress={this.props.handleContinueClick} // TODO: need to impliment
+            onPress={() => this.handleNextClick(this.props)} // TODO: need to impliment
           >
             <Text
               style={styles.continueText}>
@@ -77,6 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    alignSelf: 'center',
     width: '80%',
   },
 
@@ -91,7 +102,7 @@ const styles = StyleSheet.create({
   logo: {
     position: 'absolute',
     right: 0,
-    top: 50,
+    top: 40,
   },
 
   title: {

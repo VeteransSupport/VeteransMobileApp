@@ -8,6 +8,10 @@ class Info extends React.Component {
     this.state = {}
   }
 
+  navigateToMainPage = props => {
+    props.navigation.navigate('Home');
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -33,7 +37,7 @@ class Info extends React.Component {
         </View>
 
         <View style={styles.guideButtons}>
-          <Button color="black" title="back" />
+          <Button color="black" title="back" onPress={() => this.navigateToMainPage(this.props)} />
           <Button color="black" title="visit charity list" />
         </View>
 

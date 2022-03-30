@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button, Image } from 'react-native';
+import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 
@@ -12,6 +12,14 @@ class SelectCharity extends React.Component {
   componentDidMount() {
   }
 
+  handleNextClick = props => {
+    props.navigation.navigate('NominatedContacts');
+  }
+
+  handleLogoClick = props => {
+      props.navigation.navigate('Home');
+  }
+
   render() {
     const { open, value, items } = this.state;
 
@@ -19,7 +27,9 @@ class SelectCharity extends React.Component {
       <View style={styles.page}>
         <View style={styles.header}>
           <Text style={styles.title}>Sign Up</Text>
-          <Image style={styles.logo} source={require('../../assets/favicon.png')} />
+          <TouchableOpacity style={styles.logo} onPress={() => this.handleLogoClick(this.props)}>
+            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+          </TouchableOpacity>
         </View>
         <View style={styles.body}>
           <Text style={styles.header2}>Select Charity</Text>
@@ -32,9 +42,15 @@ class SelectCharity extends React.Component {
           <Text style={styles.paragraph}>
             If you have a charity in mind but they are not on the list, please contact your chosen charity and ask them to register.
           </Text>
-          <View style={styles.button}>
-            <Button title='Continue' color='#1C1C1C' />
-          </View>
+          <TouchableOpacity
+            style={styles.continueBtn}
+            onPress={() => this.handleNextClick(this.props)} // TODO: need to impliment
+          >
+            <Text
+              style={styles.continueText}>
+              Continue
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     )
@@ -49,6 +65,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    alignSelf: 'center',
     width: '80%',
   },
 
@@ -63,7 +80,7 @@ const styles = StyleSheet.create({
   logo: {
     position: 'absolute',
     right: 0,
-    top: 50,
+    top: 40,
   },
 
   title: {
@@ -93,7 +110,23 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 14,
     marginTop: 10,
-  }
+  },
+
+  continueBtn: {
+    borderRadius: 5,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    color: 'red',
+    backgroundColor: '#000',
+  },
+
+  continueText: {
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+  },
 })
 
 export default SelectCharity;
