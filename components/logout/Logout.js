@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
   View,
-  Image,
-  TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class Logout extends React.Component {
   constructor(props) {
@@ -22,6 +20,24 @@ class Logout extends React.Component {
   }
 
   async componentDidMount() {
+    // this.clearAllAsyncStorage();
+    this.props.navigation.navigate('Login');
+  }
+
+  clearAllAsyncStorage = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      console.log('Could not clear AsyncStorage: ' + e);
+      Alert.alert('Error logging out', 'Could not clear session token.');
+    }
+
+    console.log('User logged out')
+  }
+
+  handleLogoutClick = (props) => {
+    this.clearAllAsyncStorage();
+    props.navigation.navigate('Home');
   }
 
   render() {
@@ -31,7 +47,7 @@ class Logout extends React.Component {
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.logoutBtn}
-          onPress={this.props.handleLogoutClick}>
+          onPress={() => this.handleLogoutClick(this.props)}>
           <Text style={styles.logoutText}>
             LOGOUT
           </Text>
@@ -44,6 +60,8 @@ class Logout extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    position: 'absolute',
+    top: '50%',
     alignItems: 'center',
     justifyContent: 'center',
     // To center horizontally on screen
@@ -61,7 +79,6 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 40,
     backgroundColor: '#000',
   },
 });

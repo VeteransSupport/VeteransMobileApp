@@ -12,13 +12,23 @@ class NominatedContacts extends React.Component {
   componentDidMount() {
   }
 
+  handleRegisterClick = props => {
+    props.navigation.navigate('Login');
+  }
+
+  handleLogoClick = props => {
+    props.navigation.navigate('Home');
+  }
+
   render() {
 
     return (
       <View style={styles.page}>
         <View style={styles.header}>
           <Text style={styles.title}>Sign Up</Text>
-          <Image style={styles.logo} source={require('../../assets/favicon.png')} />
+          <TouchableOpacity style={styles.logo} onPress={() => this.handleLogoClick(this.props)}>
+            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+          </TouchableOpacity>
         </View>
         <View style={styles.body}>
           <Text>Add your nominated contact(s)</Text>
@@ -70,7 +80,7 @@ class NominatedContacts extends React.Component {
 
           <TouchableOpacity
             style={styles.continueBtn}
-          // onPress={this.props.handleContinueClick} // TODO: need to impliment
+            onPress={() => this.handleRegisterClick(this.props)} // TODO: need to impliment
           >
             <Text
               style={styles.continueText}>
@@ -92,6 +102,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
+    alignSelf: 'center',
     width: '80%',
   },
 
@@ -106,7 +117,7 @@ const styles = StyleSheet.create({
   logo: {
     position: 'absolute',
     right: 0,
-    top: 50,
+    top: 40,
   },
 
   title: {
