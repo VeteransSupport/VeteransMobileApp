@@ -3,7 +3,7 @@ import { Text, StyleSheet, Image, View, TextInput, Button, Switch, Linking, Touc
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 
-class SignUp extends React.Component {
+export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +23,7 @@ class SignUp extends React.Component {
   }
 
   handleLogoClick = props => {
-      props.navigation.navigate('Home');
+    props.navigation.navigate('Home');
   }
 
   render() {
@@ -195,5 +195,3 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 })
-
-export default SignUp;

@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image } from 'reac
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 
-class NominatedContacts extends React.Component {
+export default class NominatedContacts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -198,4 +198,3 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 })
-export default NominatedContacts;

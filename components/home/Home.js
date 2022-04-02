@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Button, TouchableOpacity, Text, View, Alert, Image, } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,9 +26,8 @@ class Home extends React.Component {
     }
   }
 
-  handleMilitryClick = async (props) => {
-    const token = await AsyncStorage.getItem('token');
-    if (token) {
+  handleMilitryClick = (props) => {
+    if (this.state.authenticated) {
       props.navigation.navigate('Welcome');
     } else {
       props.navigation.navigate('Login');
@@ -137,5 +136,3 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
   }
 });
-
-export default Home;

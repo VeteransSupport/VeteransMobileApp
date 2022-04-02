@@ -8,20 +8,13 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-class Logout extends React.Component {
+export default class Logout extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: 'user@example.com',
-      password: 'KLcXUsn990',
-      authenticated: false,
-      token: 'this is the tokennnnnn'
-    }
+    this.state = {}
   }
 
   async componentDidMount() {
-    // this.clearAllAsyncStorage();
-    this.props.navigation.navigate('Login');
   }
 
   clearAllAsyncStorage = async () => {
@@ -41,8 +34,6 @@ class Logout extends React.Component {
   }
 
   render() {
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
     return (
       <View style={styles.container}>
         <TouchableOpacity
@@ -55,7 +46,6 @@ class Logout extends React.Component {
       </View>
     )
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -82,5 +72,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
 });
-
-export default Logout;

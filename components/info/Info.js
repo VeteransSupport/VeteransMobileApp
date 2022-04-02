@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Button, StyleSheet, TouchableOpacity, Image, Text, View } from 'react-native';
 
-class Info extends React.Component {
+export default class Info extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -10,6 +10,10 @@ class Info extends React.Component {
 
   navigateToMainPage = props => {
     props.navigation.navigate('Home');
+  }
+
+  navigateToCharitiesPage = props => {
+    props.navigation.navigate('Charities');
   }
 
   render() {
@@ -38,7 +42,7 @@ class Info extends React.Component {
 
         <View style={styles.guideButtons}>
           <Button color="black" title="back" onPress={() => this.navigateToMainPage(this.props)} />
-          <Button color="black" title="visit charity list" />
+          <Button color="black" title="visit charity list" onPress={() => this.navigateToCharitiesPage(this.props)} />
         </View>
 
       </View>
@@ -122,4 +126,3 @@ const styles = StyleSheet.create({
     padding: 2,
   },
 });
-export default Info;

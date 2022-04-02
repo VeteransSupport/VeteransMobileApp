@@ -14,7 +14,7 @@ import SignUp from "./components/signUp/SignUp";
 import SelectCharity from "./components/selectCharity/SelectCharity";
 import NominatedContacts from "./components/nominatedContacts/NominatedContacts";
 import Logout from "./components/logout/Logout";
-
+import Charities from "./components/charities/Charities";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -22,16 +22,17 @@ const Stack = createStackNavigator();
 function Root() {
   return (
     <Drawer.Navigator initialRouteName="Home">
-      <Drawer.Screen name="Welcome" options={{ headerShown: true }} component={TrafficLight}/>
-      <Drawer.Screen name="Change Details" options={{ headerShown: true }} component={ChangeDetails} />
-      <Drawer.Screen name="Contact" options={{ headerShown: true }} component={Contact} />
-      <Drawer.Screen name="Info" options={{ headerShown: false }} component={Info} />
-      <Drawer.Screen name="SignUp" options={{ headerShown: false }} component={SignUp} />
-      <Drawer.Screen name="SelectCharity" options={{ headerShown: false }} component={SelectCharity} />
-      <Drawer.Screen name="NominatedContacts" options={{ headerShown: false }} component={NominatedContacts} />
-      <Drawer.Screen name="Home" options={{ headerShown: false }} component={Home} />
-      <Drawer.Screen name="Login" options={{ headerShown: false }} component={Login} />
-      <Drawer.Screen name="Logout" options={{ headerShown: false }} component={Logout} />
+      <Drawer.Screen name="Welcome" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={TrafficLight}/>
+      <Drawer.Screen name="Change Details" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={ChangeDetails} />
+      <Drawer.Screen name="Contact" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={Contact} />
+      <Drawer.Screen name="Info" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Info} />
+      <Drawer.Screen name="SignUp" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={SignUp} />
+      <Drawer.Screen name="SelectCharity" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={SelectCharity} />
+      <Drawer.Screen name="NominatedContacts" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={NominatedContacts} />
+      <Drawer.Screen name="Home" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Home} />
+      <Drawer.Screen name="Login" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Login} />
+      <Drawer.Screen name="Logout" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Logout} />
+      <Drawer.Screen name="Charities" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Charities} />
     </Drawer.Navigator>
   );
 }
