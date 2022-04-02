@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from 'react-n
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 
-class SelectCharity extends React.Component {
+export default class SelectCharity extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -17,12 +17,10 @@ class SelectCharity extends React.Component {
   }
 
   handleLogoClick = props => {
-      props.navigation.navigate('Home');
+    props.navigation.navigate('Home');
   }
 
   render() {
-    const { open, value, items } = this.state;
-
     return (
       <View style={styles.page}>
         <View style={styles.header}>
@@ -128,5 +126,3 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 })
-
-export default SelectCharity;

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-class Login extends React.Component {
+export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -169,8 +169,7 @@ class Login extends React.Component {
 
         <TouchableOpacity
           style={styles.loginBtn}
-          onPress={() => this.handleSignupClick(this.props)}
-          >
+          onPress={() => this.handleSignupClick(this.props)}>
           <Text
             style={styles.loginText}>
             Sign Up
@@ -247,5 +246,3 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
 });
-
-export default Login;

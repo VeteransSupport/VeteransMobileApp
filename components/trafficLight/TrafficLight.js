@@ -2,13 +2,24 @@ import React from 'react';
 import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-class TrafficLight extends React.Component {
+export default class TrafficLight extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      authenticated: false
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    if (await AsyncStorage.getItem('token') !== null) {
+      this.setState({ authenticated: true });
+    }
+
+    if (!this.state.authenticated) {
+      this.props.navigation.navigate('Login');
+    }
   }
 
   handleLogoClick = (props) => {
@@ -19,10 +30,10 @@ class TrafficLight extends React.Component {
     return (
       <View style={styles.page}>
         <View style={styles.header}>
-        <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
-          <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
-        </TouchableOpacity>
-          
+          <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
+            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+          </TouchableOpacity>
+
         </View>
         <View style={styles.adjustTop}>
           <View style={styles.buttonContainer}>
@@ -146,5 +157,3 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 })
-
-export default TrafficLight;
