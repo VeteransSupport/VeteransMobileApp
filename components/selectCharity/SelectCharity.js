@@ -1,15 +1,34 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
+import { Picker } from '@react-native-picker/picker';
 
 export default class SelectCharity extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      charitiesList: [],
+      selectedCharity: '1',
+    }
   }
 
   componentDidMount() {
+    this.getCharitiesList();
+  }
+
+  getCharitiesList() {
+    return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        // set charitiesList state as the data returned
+        // set selectedCharity state as the id of the first charity in the data returned
+        this.setState({ charitiesList: responseJson.results, selectedCharity: responseJson.results[0].id });
+      })
+      .catch((err) => {
+        console.log(err);
+        Alert.alert('Error', 'Couldent get list of charities');
+      });
   }
 
   handleNextClick = props => {
@@ -31,6 +50,20 @@ export default class SelectCharity extends React.Component {
         </View>
         <View style={styles.body}>
           <Text style={styles.header2}>Select Charity</Text>
+
+          <TouchableOpacity style={styles.dropdownContainer}>
+            <Picker
+              selectedValue={this.state.selectedCharity}
+              style={styles.dropdown}
+              onValueChange={(itemValue, itemIndex) => this.setState({ selectedCharity: itemValue })}>
+              {this.state.charitiesList.map((charity, i) => {
+                return (
+                  <Picker.Item key={charity.id} label={charity.title} value={charity.id} />
+                )
+              })}
+            </Picker>
+          </TouchableOpacity>
+
           <Text style={styles.paragraph}>
             If you do not already have a charity in mind then we recommend you look into the charities avalible and read their 'about us pages'.
           </Text>
@@ -65,6 +98,19 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     alignSelf: 'center',
     width: '80%',
+  },
+
+  dropdownContainer: {
+    backgroundColor: '#e5e5e5',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    marginTop: 15,
+    marginBottom: 30,
+  },
+
+  dropdown: {
+    height: 50,
+    width: '100%',
   },
 
   header: {
