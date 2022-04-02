@@ -5,7 +5,6 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity,
 } from "react-native";
 
 export default class Charity extends React.Component {
@@ -19,13 +18,13 @@ export default class Charity extends React.Component {
   render() {
     return (
       <View>
-        {this.props.data.map((paper, i) => {
+        {this.props.data.map((charity, i) => {
           return (
-            <View style={styles.card} key={i + paper.paper_id}>
+            <View style={styles.card} key={i + charity.id}>
               <Image style={styles.image} source={require('../../assets/favicon.png')} />
               <Text style={styles.id}>{i + 1}</Text>
-              <Text style={styles.title}>{paper.paper_id}</Text>
-              <Text style={styles.description}>{paper.paper_title}</Text>
+              <Text style={styles.title}>{charity.title}</Text>
+              <Text style={styles.description}>{charity.description}</Text>
             </View>
           )
         })}
@@ -49,8 +48,12 @@ const styles = StyleSheet.create({
 
   id: {
     position: 'absolute',
-    right: 0,
-    width: 30,
+    top: -20,
+    right: 5,
+    width: 25,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    textAlign: 'center',
     fontWeight: 'bold',
     color: '#444',
   },

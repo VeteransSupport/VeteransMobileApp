@@ -26,7 +26,7 @@ export default class Charities extends React.Component {
   }
 
   getData() {
-    return fetch('http://unn-w18014333.newnumyspace.co.uk/kf6012/coursework/part1/api/papers')
+    return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({ data: responseJson.results });

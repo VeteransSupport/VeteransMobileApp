@@ -38,6 +38,10 @@ export default class Home extends React.Component {
     props.navigation.navigate('Info');
   }
 
+  handleCharitiesClick = (props) => {
+    props.navigation.navigate('Charities');
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -49,7 +53,7 @@ export default class Home extends React.Component {
           <View style={styles.buttons}>
             <Button color="black" title="Military" onPress={() => this.handleMilitryClick(this.props)}/>
             <Button color="black" title="Nominated Contact" />
-            <Button color="black" title="Charities" />
+            <Button color="black" title="Charities" onPress={() => this.handleCharitiesClick(this.props)}/>
           </View>
         </View>
 
