@@ -38,6 +38,7 @@ export default class Charities extends React.Component {
   }
 
   verityUserType = () => {
+    // TODO: REMOVE
     console.log(this.state.userTypeId);
   }
 

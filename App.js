@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 
 function Root() {
   return (
-    <Drawer.Navigator initialRouteName="CreateCharity">
+    <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Welcome" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={TrafficLight}/>
       <Drawer.Screen name="Charities" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Charities} />
       <Drawer.Screen name="Home" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Home} />
