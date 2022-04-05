@@ -18,18 +18,61 @@ export default class Charities extends React.Component {
     super(props);
     this.state = {
       data: [],
+      authenticated: false,
+      userTypeId: '',
     }
   }
 
   async componentDidMount() {
+    const token = await AsyncStorage.getItem('token');
+    if (token !== null) {
+      this.getUserTypeId(token);
+    }
     this.getData();
+
+    // Setting timeout to wait for
+    // the state to be updated
+    setTimeout(this.verityUserType,
+      500
+    );
+  }
+
+  verityUserType = () => {
+    // TODO: REMOVE
+    console.log(this.state.userTypeId);
+  }
+
+  getUserTypeId = async (token) => {
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+    let formData = new FormData();
+    formData.append('token', token);
+
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers(),
+      body: formData
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          throw Error(response.statusText)
+        }
+      })
+      .then((data) => {
+        this.setState({ authenticated: true, userTypeId: data.results[0].type_id });
+      })
+      .catch((err) => {
+        console.log("something went wrong ", err);
+        Alert.alert('Something went wrong', 'Please log out and log in again.');
+      });
   }
 
   getData() {
     return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
       .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({ data: responseJson.results });
+      .then((data) => {
+        this.setState({ data: data.results });
       })
       .catch((err) => {
         console.log(err);
