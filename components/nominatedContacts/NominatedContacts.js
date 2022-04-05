@@ -12,21 +12,17 @@ export default class NominatedContacts extends React.Component {
   componentDidMount() {
   }
 
-  handleRegisterClick = props => {
-    props.navigation.navigate('Login');
-  }
-
-  handleLogoClick = props => {
-    props.navigation.navigate('Home');
-  }
-
   render() {
+    let title = 'Sign Up';
+    if (this.props.type === 'changedetails') {
+      title = 'Change\nDetails';
+    }
 
     return (
       <View style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.title}>Sign Up</Text>
-          <TouchableOpacity style={styles.logo} onPress={() => this.handleLogoClick(this.props)}>
+          <Text style={styles.title}>{title}</Text>
+          <TouchableOpacity style={styles.logo} onPress={() => this.props.handleLogoClick()}>
             <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
           </TouchableOpacity>
         </View>
@@ -80,7 +76,7 @@ export default class NominatedContacts extends React.Component {
 
           <TouchableOpacity
             style={styles.continueBtn}
-            onPress={() => this.handleRegisterClick(this.props)} // TODO: need to impliment
+            onPress={() => this.props.handleSubmitClick()}
           >
             <Text
               style={styles.continueText}>

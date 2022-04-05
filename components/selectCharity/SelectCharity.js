@@ -14,6 +14,7 @@ export default class SelectCharity extends React.Component {
   }
 
   componentDidMount() {
+    this.props.handleCharityClick(this.state.selectedCharity);
     this.getCharitiesList();
   }
 
@@ -31,20 +32,22 @@ export default class SelectCharity extends React.Component {
       });
   }
 
-  handleNextClick = props => {
-    props.navigation.navigate('NominatedContacts');
-  }
-
-  handleLogoClick = props => {
-    props.navigation.navigate('Home');
+  changeCharity(id) {
+    this.setState({ selectedCharity: id });
+    this.props.handleCharityClick(id);
   }
 
   render() {
+    let title = 'Sign Up';
+    if (this.props.type === 'changedetails') {
+      title = 'Change\nDetails';
+    }
+
     return (
       <View style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.title}>Sign Up</Text>
-          <TouchableOpacity style={styles.logo} onPress={() => this.handleLogoClick(this.props)}>
+          <Text style={styles.title}>{title}</Text>
+          <TouchableOpacity style={styles.logo} onPress={() => this.props.handleLogoClick()}>
             <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
           </TouchableOpacity>
         </View>
@@ -55,7 +58,7 @@ export default class SelectCharity extends React.Component {
             <Picker
               selectedValue={this.state.selectedCharity}
               style={styles.dropdown}
-              onValueChange={(itemValue, itemIndex) => this.setState({ selectedCharity: itemValue })}>
+              onValueChange={(itemValue, itemIndex) => this.changeCharity(itemValue)}>
               {this.state.charitiesList.map((charity, i) => {
                 return (
                   <Picker.Item key={charity.id} label={charity.title} value={charity.id} />
@@ -75,7 +78,7 @@ export default class SelectCharity extends React.Component {
           </Text>
           <TouchableOpacity
             style={styles.continueBtn}
-            onPress={() => this.handleNextClick(this.props)} // TODO: need to impliment
+            onPress={() => this.props.handleNextClick(3)} // TODO: need to impliment
           >
             <Text
               style={styles.continueText}>

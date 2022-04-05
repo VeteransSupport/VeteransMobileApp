@@ -5,17 +5,18 @@ import SignUp from "../signUp/SignUp";
 import SelectCharity from "../selectCharity/SelectCharity";
 import NominatedContacts from "../nominatedContacts/NominatedContacts";
 
-export default class ChangeDetails extends React.Component {
+export default class SignUpPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'changedetails',
+      type: 'signup',
       pageNumber: 1,
       submit: false,
       name: '',
       email: '',
       service: '',
       number: '',
+      password: '',
       charityID: '',
       nominated: [],
     }

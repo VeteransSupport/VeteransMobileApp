@@ -11,27 +11,24 @@ export default class SignUp extends React.Component {
     }
   }
 
+  componentDidMount() {
+  }
+
   toggleSwitch = (value) => {
     this.setState({ TnC: value });
   }
 
-  componentDidMount() {
-  }
-
-  handleNextClick = props => {
-    props.navigation.navigate('SelectCharity');
-  }
-
-  handleLogoClick = props => {
-    props.navigation.navigate('Home');
-  }
-
   render() {
+    let title = 'Sign Up';
+    if (this.props.type === 'changedetails') {
+      title = 'Change\nDetails';
+    }
+
     return (
       <View style={styles.page}>
         <View style={styles.header}>
-          <Text style={styles.title}>Sign Up</Text>
-          <TouchableOpacity style={styles.logo} onPress={() => this.handleLogoClick(this.props)}>
+          <Text style={styles.title}>{title}</Text>
+          <TouchableOpacity style={styles.logo} onPress={() => this.props.handleLogoClick()}>
             <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
           </TouchableOpacity>
         </View>
@@ -53,18 +50,19 @@ export default class SignUp extends React.Component {
             <Text style={styles.formText}>Phone Number: </Text>
             <TextInput style={styles.inputField} placeholder='Phone Number' placeholderTextColor='#aaa' />
           </View>
-          <View style={styles.input}>
-            <Text style={styles.formText}>Password: </Text>
-            <TextInput style={styles.inputField} placeholder='Password' placeholderTextColor='#aaa' />
-          </View>
+          {this.props.type === 'signup' &&
+            <View style={styles.input}>
+              <Text style={styles.formText}>Password: </Text>
+              <TextInput style={styles.inputField} placeholder='Password' placeholderTextColor='#aaa' />
+            </View>
+          }
           <View style={styles.adjustInline}>
             <Text style={styles.termsAndConditions} onPress={() => Linking.openURL('http://google.com')}>Terms and Conditions</Text>
             <Switch style={styles.toggle} onValueChange={this.toggleSwitch} value={this.state.TnC} />
           </View>
           <TouchableOpacity disabled={!this.state.TnC}
             style={[this.state.TnC ? styles.continueBtn : styles.continueBtnDisabled]}
-            onPress={() => this.handleNextClick(this.props)} // TODO: need to impliment
-          >
+            onPress={() => this.props.handleNextClick(2)}>
             <Text
               style={styles.continueText}>
               Continue
@@ -99,12 +97,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
 
-  logo: {
-    position: 'absolute',
-    right: 0,
-    top: 40,
-  },
-
   title: {
     textAlign: 'center',
     fontSize: 35,
@@ -112,6 +104,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 50,
     marginLeft: 10,
+  },
+
+  logo: {
+    position: 'absolute',
+    right: 0,
+    top: 40,
   },
 
   inputField: {
@@ -194,4 +192,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
   },
-})
+});
