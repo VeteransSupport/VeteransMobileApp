@@ -71,7 +71,7 @@ export default class AddCharitySupport extends React.Component {
 
 
     navigateToPrevious = props => {
-        props.navigation.navigate('Home | MCG');
+        props.navigation.navigate('Home_MCG');
     }
 
     render() {
@@ -132,7 +132,9 @@ const styles = StyleSheet.create({
     image: {
         position: 'absolute',
         top: '6%',
-        left: '-20%'
+        left: '-20%',
+        width: 119,
+        height: 74,
     },
 
     title: {

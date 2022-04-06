@@ -11,7 +11,7 @@ export default class MCGSChangeDetails extends React.Component {
     }
 
     navigateToPrevious = props => {
-        props.navigation.navigate('Home | MCGS');
+        props.navigation.navigate('Home_MCGS');
     }
 
     render() {

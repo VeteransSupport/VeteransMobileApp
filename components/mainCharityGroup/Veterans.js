@@ -8,7 +8,7 @@ export default class Veterans extends React.Component {
     }
 
     navigateToPrevious = props => {
-        props.navigation.navigate('Home | MCG');
+        props.navigation.navigate('Home_MCG');
     }
 
     render() {

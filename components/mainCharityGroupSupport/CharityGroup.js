@@ -40,7 +40,7 @@ export default class CharityGroup extends React.Component {
     }
 
     handleBackClick = (props) => {
-      props.navigation.navigate('Home | MCGS');
+      props.navigation.navigate('Home_MCGS');
     }
 
     render() {
