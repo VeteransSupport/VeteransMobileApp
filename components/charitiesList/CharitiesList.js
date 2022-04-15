@@ -13,14 +13,18 @@ import {
 import Charity from "../charity/Charity";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class Charities extends React.Component {
+export default class CharitiesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [],
       authenticated: false,
       userTypeId: '',
+      loaded: false,
+      isEditView: false,
     }
+
+    this.handleCharityEditClick = this.handleCharityEditClick.bind(this);
   }
 
   async componentDidMount() {
@@ -38,8 +42,16 @@ export default class Charities extends React.Component {
   }
 
   verityUserType = () => {
-    // TODO: REMOVE
-    console.log(this.state.userTypeId);
+    this.setState({ loaded: true });
+    // Only app admin, app support and charity admin can edit charity
+    if (this.props.isEditView !== undefined &&
+      this.props.isEditView !== null &&
+      this.props.isEditView === true &&
+      (this.state.userTypeId === '1' ||
+        this.state.userTypeId === '2' ||
+        this.state.userTypeId === '3')) {
+      this.setState({ isEditView: true });
+    }
   }
 
   getUserTypeId = async (token) => {
@@ -91,27 +103,77 @@ export default class Charities extends React.Component {
     console.log('User logged out')
   }
 
+  handleLogoClick = (props) => {
+    if (this.props.handleNavigationClick !== undefined &&
+      this.props.handleNavigationClick !== null) {
+      this.props.handleNavigationClick('Home');
+    } else {
+      props.navigation.navigate('Home');
+    }
+  }
+
   handleBackClick = (props) => {
-    props.navigation.navigate('Home');
+    if (this.props.handleNavigationClick !== undefined &&
+      this.props.handleNavigationClick !== null) {
+      this.props.handleBackClick();
+    } else {
+      props.navigation.navigate('Home');
+    }
+  }
+
+  handleCharityEditClick = (charityId) => {
+    this.props.handleCharityEditClick(charityId);
   }
 
   render() {
+    let enableEdit = false;
+    if (this.props.isEditView !== undefined &&
+      this.props.isEditView !== null &&
+      this.props.isEditView === true) {
+      enableEdit = true;
+    }
+
+    let title = 'Charities List';
+    if (this.props.isEditView !== undefined &&
+      this.props.isEditView !== null &&
+      this.props.isEditView === true &&
+      (this.state.userTypeId === '1' ||
+        this.state.userTypeId === '2' ||
+        this.state.userTypeId === '3')) {
+      title = 'Edit Charities';
+    }
+
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.imageContainer} onPress={() => this.handleBackClick(this.props)}>
+        <TouchableOpacity style={styles.imageContainer} onPress={() => this.handleLogoClick(this.props)}>
           <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
         </TouchableOpacity>
-        <Text style={styles.title}>Charities</Text>
+
+        <Text style={styles.title}>{title}</Text>
+
+        {this.state.isEditView &&
+          <View style={styles.subSection}>
+            <Text style={styles.adjustBackBtnTxt}>Select a charity below to edit it's information.</Text>
+            <Text style={styles.adjustBackBtnTxt}>Or use the button below to go back to the previous page.</Text>
+          </View>
+        }
+
         <TouchableOpacity
-          style={styles.backBtn}
+          style={[enableEdit ? styles.backBtn_v2 : styles.backBtn]}
           onPress={() => this.handleBackClick(this.props)}>
           <Text
-            style={styles.backText}>
+            style={[enableEdit ? styles.backText_v2 : styles.backText]}>
             BACK
           </Text>
         </TouchableOpacity>
+
         <ScrollView style={styles.scrollView}>
-          <Charity data={this.state.data} />
+          {!this.state.loaded &&
+            <Text>LOADING....</Text>
+          }
+          {this.state.loaded &&
+            <Charity isEditView={this.state.isEditView} handleCharityEditClick={this.handleCharityEditClick} data={this.state.data} />
+          }
         </ScrollView>
       </SafeAreaView>
     )
@@ -142,6 +204,16 @@ const styles = StyleSheet.create({
     fontSize: 45,
   },
 
+  subSection: {
+    marginTop: 25,
+  },
+
+  adjustBackBtnTxt: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+
   scrollView: {
     marginTop: 25,
     marginHorizontal: 20,
@@ -168,6 +240,25 @@ const styles = StyleSheet.create({
   },
 
   backText: {
+    width: '100%',
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold'
+  },
+
+  backBtn_v2: {
+    width: '25%',
+    borderRadius: 3,
+    height: 35,
+    marginLeft: 25,
+    justifyContent: 'center',
+    color: 'red',
+    marginTop: 20,
+    backgroundColor: '#000',
+    zIndex: 999,
+  },
+
+  backText_v2: {
     width: '100%',
     textAlign: 'center',
     color: '#fff',

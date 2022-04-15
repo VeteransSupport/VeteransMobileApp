@@ -13,7 +13,7 @@ export default class Info extends React.Component {
   }
 
   navigateToCharitiesPage = props => {
-    props.navigation.navigate('Charities');
+    props.navigation.navigate('CharitiesList');
   }
 
   render() {

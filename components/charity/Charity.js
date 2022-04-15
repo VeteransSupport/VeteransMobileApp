@@ -5,6 +5,7 @@ import {
   View,
   Text,
   Image,
+  TouchableOpacity,
 } from "react-native";
 
 export default class Charity extends React.Component {
@@ -20,11 +21,23 @@ export default class Charity extends React.Component {
       <View>
         {this.props.data.map((charity, i) => {
           return (
-            <View style={styles.card} key={charity.id}>
-              <Image style={styles.image} source={require('../../assets/favicon.png')} />
-              <Text style={styles.id}>{i + 1}</Text>
-              <Text style={styles.title}>{charity.title}</Text>
-              <Text style={styles.description}>{charity.description}</Text>
+            <View key={charity.id}>
+              {!this.props.isEditView &&
+                <View style={styles.card}>
+                  <Image style={styles.image} source={require('../../assets/favicon.png')} />
+                  <Text style={styles.id}>{i + 1}</Text>
+                  <Text style={styles.title}>{charity.title}</Text>
+                  <Text style={styles.description}>{charity.description}</Text>
+                </View>
+              }
+              {this.props.isEditView &&
+                <TouchableOpacity style={styles.card} onPress={() => this.props.handleCharityEditClick(charity.id)}>
+                  <Image style={styles.image} source={require('../../assets/favicon.png')} />
+                  <Text style={styles.id}>{i + 1}</Text>
+                  <Text style={styles.title}>{charity.title}</Text>
+                  <Text style={styles.description}>{charity.description}</Text>
+                </TouchableOpacity>
+              }
             </View>
           )
         })}
