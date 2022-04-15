@@ -14,7 +14,7 @@ export default class ChangeDetails extends React.Component {
       submit: false,
       name: '',
       email: '',
-      service: '',
+      serviceNumber: '',
       number: '',
       charityID: '',
       nominated: [],
