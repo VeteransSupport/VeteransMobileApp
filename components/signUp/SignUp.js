@@ -43,8 +43,8 @@ export default class SignUp extends React.Component {
             <TextInput style={styles.inputField} placeholder='Email' placeholderTextColor='#aaa' />
           </View>
           <View style={styles.input}>
-            <Text style={styles.formText}>Service: </Text>
-            <TextInput style={styles.inputField} placeholder='Service' placeholderTextColor='#aaa' />
+            <Text style={styles.formText}>Service Number: </Text>
+            <TextInput style={styles.inputField} placeholder='Service Number' placeholderTextColor='#aaa' />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Phone Number: </Text>

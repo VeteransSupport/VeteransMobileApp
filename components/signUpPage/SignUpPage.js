@@ -14,7 +14,7 @@ export default class SignUpPage extends React.Component {
       submit: false,
       name: '',
       email: '',
-      service: '',
+      serviceNumber: '',
       number: '',
       password: '',
       charityID: '',
