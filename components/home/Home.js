@@ -39,7 +39,7 @@ export default class Home extends React.Component {
   }
 
   handleCharitiesClick = (props) => {
-    props.navigation.navigate('Charities');
+    props.navigation.navigate('CharitiesList');
   }
 
   render() {
