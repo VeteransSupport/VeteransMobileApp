@@ -1,7 +1,8 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet, Button, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import Charity from "../charity/Charity";
+import MCGSCharity from "../mainCharityGroupSupport/MCGSCharity";
+import CharityLead from "../mainCharityGroupSupport/CharityLead";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class CharityGroup extends React.Component {
@@ -13,11 +14,26 @@ export default class CharityGroup extends React.Component {
     }
 
     async componentDidMount() {
-        this.getData();
+        // Promise.all(
+            this.getData2()
+            // this.getData()
+        // )
     }
 
     getData() {
-        return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
+        return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead')
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({ data: responseJson.results });
+            })
+            .catch((err) => {
+                console.log(err);
+                Alert.alert('Error', 'Couldnt get list of charity Leads');
+            });
+    }
+
+    getData2() {
+        return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities?id=1')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({ data: responseJson.results });
@@ -52,8 +68,18 @@ export default class CharityGroup extends React.Component {
                 <Text style={styles.title}>Charity Groups</Text>
 
                 <ScrollView style={styles.scrollView}>
-                    <Charity data={this.state.data} />
+                    <MCGSCharity data={this.state.data}/>
+                    {/* <CharityLead data={this.state.data}/> */}
                 </ScrollView>
+
+                <TouchableOpacity
+                    style={styles.backBtn}
+                    onPress={() => this.handleBackClick(this.props)}>
+                    <Text
+                        style={styles.backText}>
+                        BACK
+                    </Text>
+                </TouchableOpacity>
             </SafeAreaView>
         );
     }
@@ -86,12 +112,30 @@ const styles = StyleSheet.create({
     },
 
     scrollView: {
-        marginTop: 25,
+        marginTop: 50,
         marginHorizontal: 20,
         color: 'red'
     },
 
     text: {
         fontSize: 42,
+    },
+
+    backBtn: {
+        height: 35,
+        width: 115,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+        borderRadius: 3,
+        backgroundColor: '#000',
+    },
+
+    backText: {
+        width: '100%',
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold'
     },
 })

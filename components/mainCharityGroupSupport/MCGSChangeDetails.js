@@ -28,7 +28,7 @@ export default class MCGSChangeDetails extends React.Component {
 
                     <View style={styles.input}>
                         <Text style={styles.formText}>Password: </Text>
-                        <TextInput style={styles.inputField} placeholder='Password' placeholderTextColor='#aaa' />
+                        <TextInput style={styles.inputField} placeholder='Password' secureTextEntry={true} placeholderTextColor='#aaa' />
                     </View>
                     
                     <TouchableOpacity

@@ -2,7 +2,6 @@ import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { Text, View, StyleSheet, Button, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import Charity from "../charity/Charity";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class MainCharityGroupSupport extends React.Component {
     constructor(props) {
@@ -26,17 +25,6 @@ export default class MainCharityGroupSupport extends React.Component {
                 console.log(err);
                 Alert.alert('Error', 'Couldnt get list of charities');
             });
-    }
-
-    clearAllAsyncStorage = async () => {
-        try {
-            await AsyncStorage.clear()
-        } catch (e) {
-            console.log('Couldnt clear AsyncStorage: ' + e);
-            Alert.alert('Error logging out', 'Could not clear session token.');
-        }
-
-        console.log('User logged out')
     }
 
     navigateToCharityGroupPage = props => {
