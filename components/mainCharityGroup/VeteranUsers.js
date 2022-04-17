@@ -9,34 +9,32 @@ export default class VeteranUsers extends React.Component {
     }
   }
 
-  componentDidMount() {
-    // this.getCharityLeadUser();
-  }
+  componentDidMount() {}
 
-  getCharityLeadUser() {
-    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead?token=' + this.props.token;
+  // getCharityLeadUser() {
+  //   let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead?token=' + this.props.token;
 
-    fetch(url)
-      .then((response) => {
-        if (response.status === 200) {
-          return response.json()
-        } else {
-          throw Error(response.statusText)
-        }
-      })
-      .then((results) => {
-        this.setState({ data: results.results });
-        console.log('results#########');
-        console.log(results.results);
-      })
-      .catch((errStatusCode) => {
-        console.log("something went wrong ", errStatusCode);
-        Alert.alert('Something went wrong', 'Please log out and log in again.');
+  //   fetch(url)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         return response.json()
+  //       } else {
+  //         throw Error(response.statusText)
+  //       }
+  //     })
+  //     .then((results) => {
+  //       this.setState({ data: results.results });
+  //       console.log('results#########');
+  //       console.log(results.results);
+  //     })
+  //     .catch((errStatusCode) => {
+  //       console.log("something went wrong ", errStatusCode);
+  //       Alert.alert('Something went wrong', 'Please log out and log in again.');
 
-        console.log('something went wrong :: Status Code ' + errStatusCode.message);
-        Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log back in and recreate your charity.');
-      });
-  }
+  //       console.log('something went wrong :: Status Code ' + errStatusCode.message);
+  //       Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log back in and recreate your charity.');
+  //     });
+  // }
 
   render() {
     return (

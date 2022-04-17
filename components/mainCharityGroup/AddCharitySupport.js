@@ -13,7 +13,6 @@ export default class AddCharitySupport extends React.Component {
             userTypeId: '',
             email: '',
             password: '',
-            charityId: '',
         }
     }
 
@@ -23,7 +22,6 @@ export default class AddCharitySupport extends React.Component {
             this.setState({ token: token });
             this.getUserTypeId(token);
         }
-        // this.getData();
 
         // Setting timeout to wait for
         // the state to be updated
@@ -33,7 +31,6 @@ export default class AddCharitySupport extends React.Component {
     }
 
     verityUserType = () => {
-        // TODO: REMOVE
         console.log(this.state.userTypeId);
     }
 
@@ -66,11 +63,10 @@ export default class AddCharitySupport extends React.Component {
     }
 
     createNewSupportUser() {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users'; //?email= ' + 'testsupportuser11' + '&password=' + 'testsupportuser11 ' + '&request=add';
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_support_users';
         let formData = new FormData();
         formData.append('token', this.state.token);
         formData.append('request', 'add');
-        formData.append('charity_id', this.state.charityId);
         formData.append('email', this.state.email);
         formData.append('password', this.state.password);
 
@@ -87,8 +83,6 @@ export default class AddCharitySupport extends React.Component {
                 }
             })
             .then(() => {
-                // User created
-                // Redirect to all charities page
                 this.props.navigation.navigate('Home_MCG');
             })
             .catch((errStatusCode) => {
@@ -119,12 +113,7 @@ export default class AddCharitySupport extends React.Component {
         this.setState({ password: text });
     }
 
-    handleCharityID = (text) => {
-        this.setState({ charityId: text });
-    }
-
     handleSuccessClick = props => {
-        // props.navigation.navigate('Welcome');
         if (this.state.email !== '' && this.state.password !== '') {
             this.createNewSupportUser();
             Alert.alert('Support user created:', this.state.email);
@@ -148,7 +137,6 @@ export default class AddCharitySupport extends React.Component {
 
                 <Text style={styles.title}>Add Charity Support Page</Text>
 
-                {/* <StatusBar style="auto" /> */}
                 <View style={styles.inputView}>
                     <TextInput
                         style={styles.TextInput}
@@ -167,16 +155,6 @@ export default class AddCharitySupport extends React.Component {
                         placeholder="Password"
                         placeholderTextColor="#aaa"
                         secureTextEntry={true}
-                        onChangeText={this.handlePassword}
-                    />
-                </View>
-
-                <View style={styles.charityIDView}>
-                    <TextInput
-                        style={styles.charityIDTextInput}
-                        placeholder="Charity ID"
-                        placeholderTextColor="#aaa"
-                        editable = {false}
                         onChangeText={this.handlePassword}
                     />
                 </View>
@@ -241,25 +219,6 @@ const styles = StyleSheet.create({
         height: 50,
         width: '100%',
         flex: 1,
-        padding: 10,
-        marginLeft: 20,
-        color: '#000',
-    },
-
-    charityIDView: {
-        backgroundColor: '#eee',
-        width: '100%',
-        height: 45,
-        marginBottom: 20,
-        color: '#fff',
-        alignItems: 'center',
-    },
-
-    charityIDTextInput: {
-        height: 50,
-        width: '100%',
-        flex: 1,
-        textAlign: 'center',
         padding: 10,
         marginLeft: 20,
         color: '#000',

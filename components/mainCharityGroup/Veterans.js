@@ -17,12 +17,12 @@ export default class Veterans extends React.Component {
     }
 
     async componentDidMount() {
-        // this.getData();
+        // this.getVeteranList();
         const token = await AsyncStorage.getItem('token');
         if (token !== null) {
             this.setState({ token: token });
             this.getUserTypeId(token);
-            this.getData(token);
+            this.getVeteranList(token);
         }
 
         // Setting timeout to wait for
@@ -43,7 +43,6 @@ export default class Veterans extends React.Component {
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
         formData.append('token', token);
-        // formData.get('charity_id', this.state.charityId);
 
         fetch(url, {
             method: 'POST',
@@ -66,7 +65,7 @@ export default class Veterans extends React.Component {
             });
     }
 
-    getData = async (token) => {
+    getVeteranList = async (token) => {
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/veterans?token=' + token;// '&charity_id=' + charityId;
 
         fetch(url, {
@@ -85,7 +84,7 @@ export default class Veterans extends React.Component {
             })
             .catch((err) => {
                 console.log("something went wrong## ", err);
-                Alert.alert('Error', 'Couldnt get list of Support Users');
+                Alert.alert('Error', 'Couldnt get list of Veterans');
             });
     }
 

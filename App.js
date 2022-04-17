@@ -27,7 +27,7 @@ const Stack = createStackNavigator();
 
 function Root() {
   return (
-    <Drawer.Navigator initialRouteName="Home">
+    <Drawer.Navigator initialRouteName="Login">
       <Drawer.Screen name="Welcome" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={TrafficLight}/>
       <Drawer.Screen name="CharitiesList" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={CharitiesList} />
       <Drawer.Screen name="Home" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Home} />

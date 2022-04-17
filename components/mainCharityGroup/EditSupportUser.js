@@ -1,15 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-    StyleSheet,
-    Text,
-    View, 
-    ScrollView,
-    Alert,
-    Image,
-    TextInput,
-    TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, Alert, Image, TextInput, TouchableOpacity, } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import SupportUser from "./SupportUser";
 import { Button } from "react-native-web";
@@ -19,7 +10,7 @@ export default class EditSupportUser extends React.Component {
         super(props);
         this.state = {
             isUser: false,
-            isRemoved: false,
+            isRemoved: true,
             data: [],
         }
     }
@@ -40,8 +31,6 @@ export default class EditSupportUser extends React.Component {
                 }
             })
             .then((results) => {
-                // Support User deleted
-                // Change state
                 this.setState({ data: results.results });
                 console.log('results#########');
                 console.log(results.results);
@@ -52,16 +41,16 @@ export default class EditSupportUser extends React.Component {
 
                 console.log('something went wrong :: Status Code ' + errStatusCode.message);
                 this.props.handlePageChange('', 'list');
-                // this._clear();
                 Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log back in and recreate your charity.');
             });
     }
 
     removeSupportUser() {
-        let url = '';
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_support_users';
         let formData = new FormData();
-        formData.append('token', this.state.token);
-        formData.append('id', 'create');
+        formData.append('token', this.props.token);
+        formData.append('request', 'delete');
+        formData.append('id', this.props.supportUserID);
 
         fetch(url, {
             method: 'POST',
@@ -79,6 +68,7 @@ export default class EditSupportUser extends React.Component {
                 // Support User deleted
                 // Change state
                 this.setState({ isRemoved: true });
+                this.props.navigation.navigate('Home_MCG');
             })
             .catch((errStatusCode) => {
                 console.log("something went wrong ", errStatusCode);
@@ -91,8 +81,17 @@ export default class EditSupportUser extends React.Component {
             });
     }
 
+    async _clear() {
+        await AsyncStorage.clear();
+        console.log('User logged out');
+    }
+
     navigateToList = props => {
-        props.navigation.navigate('Home');
+        props.navigation.navigate('list');
+    }
+
+    handleDeleteClick() {
+        this.removeSupportUser();
     }
 
     render() {
@@ -101,8 +100,12 @@ export default class EditSupportUser extends React.Component {
                 <ScrollView style={styles.scrollView}>
                     <SupportUser data={this.state.data} />
                 </ScrollView>
-                <TouchableOpacity style={styles.deleteBtn} onPress={() => this.navigateToList(this.props)} >
-                    <Text style={styles.deleteText}>Delete</Text>
+                <TouchableOpacity 
+                        style={styles.deleteBtn} 
+                        onPress={() => this.handleDeleteClick()} >
+                    <Text style={styles.deleteText}>
+                        Delete
+                    </Text>
                 </TouchableOpacity>
             </View>
         )
