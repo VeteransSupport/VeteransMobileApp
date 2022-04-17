@@ -1,12 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 
 export default class MCGSCharity extends React.Component {
   constructor(props) {
@@ -19,14 +13,14 @@ export default class MCGSCharity extends React.Component {
   render() {
     return (
       <View>
-        {this.props.data.map((charity, i) => {
+        {this.props.data.map((charityLead, i) => {
           return (
-            <View style={styles.card} key={charity.id}>
-              <TouchableOpacity style={styles.container}>
+            <View style={styles.card} key={charityLead.id}>
+              <TouchableOpacity style={styles.container} onPress={() => this.props.handlePageChange(charityLead.id, 'userList')}>
                 <Image style={styles.image} source={require('../../assets/favicon.png')} />
                 <Text style={styles.id}>{i + 1}</Text>
-                <Text style={styles.title}>{charity.title}</Text>
-                <Text style={styles.description}>{charity.description}</Text>
+                <Text style={styles.title}>{charityLead.title}</Text>
+                <Text style={styles.description}>{charityLead.description}</Text>
               </TouchableOpacity>
             </View>
           )

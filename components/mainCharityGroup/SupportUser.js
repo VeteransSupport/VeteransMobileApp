@@ -12,13 +12,13 @@ export default class SupportUser extends React.Component {
   render() {
     return (
       <View>
-        {this.props.data.map((user, i) => {
+        {this.props.data.map((support_users, i) => {
           return (
-            <View style={styles.card} key={user.id}>
-                <TouchableOpacity style={styles.container} onPress={() => this.props.handlePageChange(user.id, 'user')}>
+            <View style={styles.card} key={support_users.id}>
+                <TouchableOpacity style={styles.container} onPress={() => this.props.handlePageChange(support_users.id, 'user')}>
                   <Text style={styles.id}>{i + 1}</Text>
-                  <Text style={styles.email}>{user.email}</Text>
-                  <Text style={styles.charity}>Charity: {user.title}</Text>
+                  <Text style={styles.email}>{support_users.email}</Text>
+                  <Text style={styles.charity}>Charity: {support_users.title}</Text>
                 </TouchableOpacity>
             </View>
           )

@@ -1,30 +1,52 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, SafeAreaView, ScrollView, Alert, Text, TouchableOpacity } from "react-native";
+import MCGSCharityUsers from "../mainCharityGroupSupport/MCGSCharityUsers";
 
 export default class CharityLead extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      data: [],
+    }
   }
 
-  async componentDidMount() { }
+  async componentDidMount() {
+    this.myCharityGroup();
+  }
+
+  myCharityGroup() {
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead?token=' + this.props.token;
+
+    fetch(url, {
+      method: 'GET',
+      headers: new Headers()
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          throw Error(response.statusText)
+        }
+      })
+      .then((responseJson) => {
+        this.setState({ data: responseJson.results });
+      })
+      .catch((err) => {
+        console.log("something went wrong ", err);
+        Alert.alert('Error', 'Couldnt get list of Support Users');
+      });
+  }
 
   render() {
     return (
-      <View>
-        {this.props.data.map((charityLead, i) => {
-          return (
-            <View style={styles.card} key={charityLead.id}>
-              <TouchableOpacity style={styles.container}>
-                <Text style={styles.id}>{i + 1}</Text>
-                <Text style={styles.email}>{charityLead.email}</Text>
-                <Text style={styles.charity_id}>Charity ID: {charityLead.charity_id}</Text>
-              </TouchableOpacity>
-            </View>
-          )
-        })}
-      </View>
+      <SafeAreaView style={styles.container}>
+        <View>
+          <ScrollView style={styles.scrollView}>
+            <MCGSCharityUsers data={this.state.data} />
+          </ScrollView>
+        </View>
+      </SafeAreaView>
     );
   }
 }
@@ -38,7 +60,9 @@ const styles = StyleSheet.create({
   },
 
   container: {
-    width: '100%',
+    flex: 1,
+    marginTop: 35,
+    paddingTop: StatusBar.currentHeight,
   },
 
   id: {

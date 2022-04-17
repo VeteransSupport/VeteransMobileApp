@@ -68,15 +68,12 @@ export default class ClickCharitySupport extends React.Component {
             });
     }
 
-    getSupportUsers = async () => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users';
-        let formData = new FormData();
-        formData.append('token', this.state.token);
+    getSupportUsers = async (token) => {
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users?token=' + token;
 
         fetch(url, {
-            method: 'POST',
-            headers: new Headers(),
-            body: formData
+            method: 'GET',
+            headers: new Headers()
         })
             .then((response) => {
                 if (response.status === 200) {
@@ -85,20 +82,14 @@ export default class ClickCharitySupport extends React.Component {
                     throw Error(response.statusText)
                 }
             })
-            .then((data) => {
-                this.setState({ authenticated: true, userTypeId: data.results[0].type_id });
+            .then((responseJson) => {
+                this.setState({ data: responseJson.results });
             })
             .catch((err) => {
                 console.log("something went wrong ", err);
-                Alert.alert('Something went wrong', 'Please log out and log in again.');
+                Alert.alert('Error', 'Couldnt get list of Support Users');
             });
     }
-
-    async _clear() {
-        await AsyncStorage.clear();
-        console.log('User logged out');
-    }
-
 
     navigateToPrevious = props => {
         props.navigation.navigate('Home_MCG');
@@ -111,11 +102,11 @@ export default class ClickCharitySupport extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                    <TouchableOpacity style={styles.imageContainer} onPress={() => this.navigateToPrevious(this.props)}>
+                        <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
+                    </TouchableOpacity>
                 {this.state.page === 'list' &&
                     <View style={styles.container}>
-                        <TouchableOpacity style={styles.imageContainer} onPress={() => this.navigateToPrevious(this.props)}>
-                            <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
-                        </TouchableOpacity>
                         <Text style={styles.title}>Charity Support Users</Text>
 
                         <ScrollView style={styles.scrollView}>
@@ -127,7 +118,8 @@ export default class ClickCharitySupport extends React.Component {
                     <View style={styles.container}>
                         <EditSupportUser handlePageChange={this.handlePageChange}
                             supportUserID={this.state.currentSupportUser}
-                            token={this.state.token} />
+                            token={this.state.token}
+                            navigation={this.props.navigation}/>
                     </View>
                 }
                 <TouchableOpacity
