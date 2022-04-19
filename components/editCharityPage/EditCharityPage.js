@@ -19,6 +19,7 @@ export default class EditCharityPage extends React.Component {
 
     this.handleNavigationClick = this.handleNavigationClick.bind(this);
     this.handleCharityEditClick = this.handleCharityEditClick.bind(this);
+    this.handleChangeSelectedView = this.handleChangeSelectedView.bind(this);
   }
 
   async componentDidMount() {
@@ -110,16 +111,12 @@ export default class EditCharityPage extends React.Component {
     this.setState({ selectedView: 'charityEdit', selectCharityId: charityId });
   }
 
-  handleEditCharityClick = () => {
-    this.setState({ selectedView: 'edit' });
-  }
-
-  handleCreateCharityClick = () => {
-    this.setState({ selectedView: 'create' });
-  }
-
   handleBackClick = () => {
     this.setState({ selectedView: '' });
+  }
+
+  handleChangeSelectedView = (selected) => {
+    this.setState({ selectedView: selected });
   }
 
   render() {
@@ -145,7 +142,7 @@ export default class EditCharityPage extends React.Component {
                 <View style={styles.selectAction}>
                   <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => this.handleEditCharityClick()}>
+                    onPress={() => this.handleChangeSelectedView('edit')}>
                     <Text
                       style={styles.btnText}>
                       Edit a Charity
@@ -154,7 +151,7 @@ export default class EditCharityPage extends React.Component {
 
                   <TouchableOpacity
                     style={styles.btn}
-                    onPress={() => this.handleCreateCharityClick()}>
+                    onPress={() => this.handleChangeSelectedView('create')}>
                     <Text
                       style={styles.btnText}>
                       Create a Charity
@@ -167,7 +164,7 @@ export default class EditCharityPage extends React.Component {
             }
             {this.state.selectedView === 'create' &&
               <EditOrCreateCharity handleNavigationClick={this.handleNavigationClick}
-                handleBackClick={this.handleBackClick}
+              handleChangeSelectedView={this.handleChangeSelectedView}
                 token={this.state.token}
                 userTypeId={this.state.userTypeId}
                 editView={false} />
@@ -175,12 +172,12 @@ export default class EditCharityPage extends React.Component {
             {this.state.selectedView === 'edit' &&
               <CharitiesList handleNavigationClick={this.handleNavigationClick}
                 handleCharityEditClick={this.handleCharityEditClick}  
-                handleBackClick={this.handleBackClick}
+                handleChangeSelectedView={this.handleChangeSelectedView}
                 isEditView={true} />
             }
             {this.state.selectedView === 'charityEdit' &&
               <EditOrCreateCharity handleNavigationClick={this.handleNavigationClick}
-                handleBackClick={this.handleBackClick}
+              handleChangeSelectedView={this.handleChangeSelectedView}
                 token={this.state.token}
                 userTypeId={this.state.userTypeId}
                 charityId={this.state.selectCharityId}

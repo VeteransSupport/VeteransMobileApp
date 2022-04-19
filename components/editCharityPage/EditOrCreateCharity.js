@@ -48,13 +48,15 @@ export default class EditOrCreateCharity extends React.Component {
         }
       })
       .then(() => {
+        // Charity created
+        // Redirect to all charities page
         this.props.handleNavigationClick('CharitiesList');
       })
       .catch((errStatusCode) => {
         console.log("something went wrong ", errStatusCode);
 
         console.log('something went wrong :: Status Code ' + errStatusCode.message);
-        this.props.handleBackClick();
+        this.props.handleChangeSelectedView('');
         Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log back in and recreate your charity.');
       });
   }
@@ -112,7 +114,7 @@ export default class EditOrCreateCharity extends React.Component {
       .then(() => {
         // Charity created
         // Redirect to all charities page
-        this.props.handleNavigationClick('CharitiesList');
+        this.props.handleChangeSelectedView('edit');
       })
       .catch((errStatusCode) => {
         console.log('something went wrong :: Status Code ' + errStatusCode.message);
@@ -181,7 +183,7 @@ export default class EditOrCreateCharity extends React.Component {
           <Text style={styles.adjustTop}>Or use the button below to go back to the previous page.</Text>
           <TouchableOpacity
             style={styles.backBtn}
-            onPress={() => this.props.handleBackClick()}>
+            onPress={() => this.props.handleChangeSelectedView('')}>
             <Text
               style={styles.backText}>
               Go Back
@@ -273,6 +275,7 @@ const styles = StyleSheet.create({
 
   headings: {
     fontSize: 22,
+    fontWeight: '500',
   },
 
   textLimitInfo: {

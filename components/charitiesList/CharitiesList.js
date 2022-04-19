@@ -115,7 +115,7 @@ export default class CharitiesList extends React.Component {
   handleBackClick = (props) => {
     if (this.props.handleNavigationClick !== undefined &&
       this.props.handleNavigationClick !== null) {
-      this.props.handleBackClick();
+      this.props.handleChangeSelectedView('');
     } else {
       props.navigation.navigate('Home');
     }
