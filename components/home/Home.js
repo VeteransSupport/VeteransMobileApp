@@ -1,13 +1,18 @@
 import React from 'react';
 import { StyleSheet, Button, TouchableOpacity, Text, View, Alert, Image, } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Login from '../login/Login';
+import CharityLogin from '../login/CharityLogin';
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      authenticated: false,
+      currentPage: 'home'
     }
+
+    this.changeCurrentPage = this.changeCurrentPage.bind(this);
   }
 
   async componentDidMount() {
@@ -26,11 +31,21 @@ export default class Home extends React.Component {
     }
   }
 
-  handleMilitryClick = (props) => {
+  handleLoginPageClick = (props) => {
     if (this.state.authenticated) {
       props.navigation.navigate('Welcome');
     } else {
-      props.navigation.navigate('Login');
+      // props.navigation.navigate('Login');
+      this.setState({ currentPage: 'login' });
+    }
+  }
+
+  handleCharityLoginPageClick = (props) => {
+    if (this.state.authenticated) {
+      props.navigation.navigate('Welcome');
+    } else {
+      // props.navigation.navigate('Login');
+      this.setState({ currentPage: 'charityLogin' });
     }
   }
 
@@ -42,34 +57,48 @@ export default class Home extends React.Component {
     props.navigation.navigate('CharitiesList');
   }
 
+  changeCurrentPage = (page) => {
+    this.setState({ currentPage: page });
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        {this.state.currentPage === 'home' &&
+          <View style={styles.innerContainer}>
+            <View style={styles.upperHalf}>
+              <View style={styles.urBackUpImage}>
+                <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+              </View>
+              <View style={styles.buttons}>
+                <Button color="black" title="Military" onPress={() => this.handleLoginPageClick(this.props)} />
+                <Button color="black" title="Nominated Contact" />
+                <Button color="black" title="Charities" onPress={() => this.handleCharityLoginPageClick(this.props)} />
+              </View>
+            </View>
 
-        <View style={styles.upperHalf}>
-          <View style={styles.urBackUpImage}>
-            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+            <View style={styles.lowerHalf}>
+              <View style={styles.howToButton}>
+                <Button color="black" title="How does this app work?" onPress={() => this.navigateToInfoPage(this.props)} />
+                <Image style={styles.militaryIcons} source={require('../../assets/militaryIconsTemporary_Transparent.png')} />
+              </View>
+              <View>
+                <Text style={styles.longInfoText}>This app acts to support military personnel and veterans to access already established mental health services and charities. Therefore, by using the app you do so in the knowledge that we waiver any responsibility for the actions or support of any users.</Text>
+              </View>
+              <TouchableOpacity style={styles.administratorButton}>
+                <Text style={styles.administratorText}>Administrator and Charity Administrators</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.buttons}>
-            <Button color="black" title="Military" onPress={() => this.handleMilitryClick(this.props)}/>
-            <Button color="black" title="Nominated Contact" />
-            <Button color="black" title="Charities" onPress={() => this.handleCharitiesClick(this.props)}/>
-          </View>
-        </View>
-
-        <View style={styles.lowerHalf}>
-          <View style={styles.howToButton}>
-            <Button color="black" title="How does this app work?" onPress={() => this.navigateToInfoPage(this.props)}/>
-            <Image style={styles.militaryIcons} source={require('../../assets/militaryIconsTemporary_Transparent.png')} />
-          </View>
-          <View>
-            <Text style={styles.longInfoText}>This app acts to support military personnel and veterans to access already established mental health services and charities. Therefore, by using the app you do so in the knowledge that we waiver any responsibility for the actions or support of any users.</Text>
-          </View>
-          <TouchableOpacity style={styles.administratorButton}>
-            <Text style={styles.administratorText}>Administrator and Charity Administrators</Text>
-          </TouchableOpacity>
-        </View>
-
+        }
+        {this.state.currentPage === 'login' &&
+          <Login navigation={this.props.navigation}
+            changeCurrentPage={this.changeCurrentPage} />
+        }
+        {this.state.currentPage === 'charityLogin' &&
+          <CharityLogin navigation={this.props.navigation}
+            changeCurrentPage={this.changeCurrentPage} />
+        }
       </View>
     );
   }
@@ -85,6 +114,17 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     alignSelf: 'center',
     width: '90%',
+  },
+
+  innerContainer: {
+    flex: 1,
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    alignSelf: 'center',
+    width: '100%',
   },
 
   upperHalf: {

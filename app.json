@@ -1,10 +1,33 @@
 {
   "expo": {
-    "name": "VeteransMobileApp",
-    "slug": "VeteransMobileApp",
+    "name": "UrBackUp",
+    "slug": "ur-back-up",
+    "description": "The UrBackUp Foundation is a new veteran charity launching a mental health app in 2022 to make access to mental health support easier for service leavers.",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/urbackup-icon.png",
+    "splash": {
+      "image": "./assets/urbackup-splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/urbackup-icon.png"
+    }
   }
 }
