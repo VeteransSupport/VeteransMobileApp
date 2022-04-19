@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Alert, Image, TextInput, TouchableOpacity } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -31,8 +31,6 @@ export default class MCGSChangeDetails extends React.Component {
     }
 
     verityUserType = () => {
-        // console.log('type_id: ' + this.state.userTypeId);
-        // console.log('id: ' + this.state.id);
         if (this.state.userTypeId !== '4' || this.state.userTypeId === '') {
             this.props.navigation.navigate('Home')
         }
@@ -119,9 +117,7 @@ export default class MCGSChangeDetails extends React.Component {
     }
 
     handleSuccessClick() {
-        console.log(this.state.email, this.state.password);
         if (this.state.email !== '' && this.state.password !== '') {
-            console.log('################');
             this.updateSupportUser();
             Alert.alert('Support user Updated:', this.state.email);
         } else {
@@ -144,7 +140,7 @@ export default class MCGSChangeDetails extends React.Component {
 
                 <Text style={styles.title}>Change Details</Text>
 
-                <Text>use the below fields to change your email {'&'} password</Text>
+                <Text style={styles.textStyle}>use the below fields to change your email {'&'} password</Text>
                 <View style={styles.form}>
                     <View style={styles.input}>
                         <Text style={styles.formText}>Email: </Text>
@@ -215,8 +211,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 
+    textStyle: {
+        textAlign: 'center',
+        marginBottom: 20,
+    },
+
     form: {
-        // flex: 4,
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
     },
 
     inputField: {
+        width: 200,
         backgroundColor: '#eee',
         alignSelf: 'flex-start',
         fontSize: 16,

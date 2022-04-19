@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
-export default class SupportUser extends React.Component {
+export default class EditSUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -15,10 +15,9 @@ export default class SupportUser extends React.Component {
         {this.props.data.map((support_users, i) => {
           return (
             <View style={styles.card} key={support_users.id}>
-                <TouchableOpacity style={styles.container} onPress={() => this.props.handlePageChange(support_users.id, 'user')}>
+                <TouchableOpacity style={styles.container}>
                   <Text style={styles.id}>{i + 1}</Text>
                   <Text style={styles.email}>{support_users.email}</Text>
-                  <Text style={styles.charity}>{support_users.title}</Text>
                 </TouchableOpacity>
             </View>
           )
@@ -37,6 +36,7 @@ const styles = StyleSheet.create({
   },
 
   container: {
+    height: 30,
     width: '100%',
     borderWidth: 5,
     borderStyle: 'solid',
@@ -56,19 +56,11 @@ const styles = StyleSheet.create({
   },
 
   email: {
-    marginBottom: 10,
     right: 0,
     width: '100%',
     height: 25,
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#444',
-  },
-
-  charity: {
-    right: 0,
-    width: '100%',
-    fontSize: 20,
     color: '#444',
   },
 

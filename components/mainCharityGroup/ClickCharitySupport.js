@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
-import { Text, View, SafeAreaView, StyleSheet, Alert, Button, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, Alert, Image, ScrollView, TouchableOpacity } from 'react-native';
 import SupportUser from "./SupportUser";
 import EditSupportUser from "./EditSupportUser";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,7 +13,7 @@ export default class ClickCharitySupport extends React.Component {
             token: false,
             authenticated: false,
             userTypeId: '',
-            page: 'list', // list, user
+            page: 'list',
             currentSupportUser: '',
         }
 
@@ -36,7 +36,6 @@ export default class ClickCharitySupport extends React.Component {
     }
 
     verifyUserType = () => {
-        console.log('type_id: ' + this.state.userTypeId);
         if (this.state.userTypeId === '5' || this.state.userTypeId === '') {
             this.props.navigation.navigate('Home')
         }
@@ -107,7 +106,7 @@ export default class ClickCharitySupport extends React.Component {
                     </TouchableOpacity>
                 {this.state.page === 'list' &&
                     <View style={styles.container}>
-                        <Text style={styles.title}>Charity Support Users</Text>
+                        <Text style={styles.title}>List of Support Users</Text>
 
                         <ScrollView style={styles.scrollView}>
                             <SupportUser data={this.state.data} handlePageChange={this.handlePageChange} />
@@ -137,10 +136,6 @@ export default class ClickCharitySupport extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // width: '60%',
-        // left: '20%',
         flex: 1,
         marginTop: 35,
         paddingTop: StatusBar.currentHeight,
@@ -181,9 +176,9 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        width: 300,
         marginTop: '5%',
         marginLeft: '5%',
+        marginRight: '5%',
         marginBottom: '5%',
         fontSize: 35,
         textAlign: 'center',

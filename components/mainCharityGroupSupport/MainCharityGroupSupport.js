@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import Charity from "../charity/Charity";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -30,9 +30,7 @@ export default class MainCharityGroupSupport extends React.Component {
         ); 
     }
 
-    verityUserType = () => {
-        console.log(this.state.userTypeId);
-    }
+    verityUserType = () => { }
 
     getUserTypeId = async (token) => {
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
@@ -61,10 +59,6 @@ export default class MainCharityGroupSupport extends React.Component {
                 Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log in again.');
             });
     }
-
-    // async componentDidMount() {
-    //     this.getData();
-    // }
 
     getData() {
         return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
@@ -98,7 +92,7 @@ export default class MainCharityGroupSupport extends React.Component {
                         <TouchableOpacity style={styles.CGButton} onPress={() => this.navigateToCharityGroupPage(this.props)}>
                             <Text
                                 style={styles.CGText}>
-                                Charity Group
+                                My Charity
                             </Text>
                         </TouchableOpacity>
                     </View>
@@ -109,11 +103,6 @@ export default class MainCharityGroupSupport extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        // flex: 1,
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // width: '60%',
-        // left: '20%',
         flex: 1,
         marginTop: 35,
         paddingTop: StatusBar.currentHeight,
@@ -161,7 +150,7 @@ const styles = StyleSheet.create({
 
     CGText: {
         width: '100%',
-        justifyContent: 'center',
+        textAlign: 'center',
         padding: 10,
         color: '#fff',
     },

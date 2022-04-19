@@ -1,6 +1,6 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, SafeAreaView, ScrollView, Alert, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, SafeAreaView, ScrollView, Alert } from "react-native";
 import MCGSCharityUsers from "../mainCharityGroupSupport/MCGSCharityUsers";
 
 export default class CharityLead extends React.Component {
@@ -52,48 +52,10 @@ export default class CharityLead extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  card: {
-    width: '100%',
-    height: 100,
-    marginBottom: -20,
-    alignItems: 'flex-start',
-  },
-
   container: {
     flex: 1,
     marginTop: 35,
     paddingTop: StatusBar.currentHeight,
   },
 
-  id: {
-    position: 'absolute',
-    marginTop: 20,
-    top: -20,
-    right: 5,
-    width: 25,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#444',
-  },
-
-  charity_id: {
-    position: 'center',
-    right: 0,
-    width: 100,
-    fontWeight: 500,
-    color: '#444',
-  },
-
-  email: {
-    // position: 'absolute',
-    marginBottom: 10,
-    right: 0,
-    width: '60%',
-    height: 20,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#444',
-  },
 });

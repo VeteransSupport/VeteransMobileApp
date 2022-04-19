@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class EditOrCreateCharity extends React.Component {
@@ -48,8 +48,6 @@ export default class EditOrCreateCharity extends React.Component {
         }
       })
       .then(() => {
-        // Charity created
-        // Redirect to all charities page
         this.props.handleNavigationClick('CharitiesList');
       })
       .catch((errStatusCode) => {
@@ -275,7 +273,6 @@ const styles = StyleSheet.create({
 
   headings: {
     fontSize: 22,
-    fontWeight: '500',
   },
 
   textLimitInfo: {
@@ -355,7 +352,6 @@ const styles = StyleSheet.create({
     width: '25%',
     borderRadius: 3,
     height: 35,
-    // alignSelf: 'center',
     justifyContent: 'center',
     color: 'red',
     marginTop: 20,
