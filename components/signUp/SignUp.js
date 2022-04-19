@@ -36,24 +36,39 @@ export default class SignUp extends React.Component {
         <View style={styles.form}>
           <View style={styles.input}>
             <Text style={styles.formText}>Full Name: </Text>
-            <TextInput style={styles.inputField} placeholder='Full Name' placeholderTextColor='#aaa' />
+            <TextInput style={styles.inputField}
+              placeholder='Full Name'
+              placeholderTextColor='#aaa'
+              onChangeText={(input) => this.props.handleNameClick(input)} />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Email: </Text>
-            <TextInput style={styles.inputField} placeholder='Email' placeholderTextColor='#aaa' />
+            <TextInput style={styles.inputField}
+              placeholder='Email'
+              placeholderTextColor='#aaa'
+              onChangeText={(input) => this.props.handleEmailClick(input)} />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Service Number: </Text>
-            <TextInput style={styles.inputField} placeholder='Service Number' placeholderTextColor='#aaa' />
+            <TextInput style={styles.inputField}
+              placeholder='Service Number'
+              placeholderTextColor='#aaa'
+              onChangeText={(input) => this.props.handleServiceNumberClick(input)} />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Phone Number: </Text>
-            <TextInput style={styles.inputField} placeholder='Phone Number' placeholderTextColor='#aaa' />
+            <TextInput style={styles.inputField}
+              placeholder='Phone Number'
+              placeholderTextColor='#aaa'
+              onChangeText={(input) => this.props.handleNumberClick(input)} />
           </View>
           {this.props.type === 'signup' &&
             <View style={styles.input}>
               <Text style={styles.formText}>Password: </Text>
-              <TextInput style={styles.inputField} placeholder='Password' placeholderTextColor='#aaa' />
+              <TextInput style={styles.inputField}
+                placeholder='Password'
+                placeholderTextColor='#aaa'
+                onChangeText={(input) => this.props.handlePasswordClick(input)} />
             </View>
           }
           <View style={styles.adjustInline}>
