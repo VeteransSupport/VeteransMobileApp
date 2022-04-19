@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, Alert, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 export default class MCGSCharityUsers extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class MCGSCharityUsers extends React.Component {
               <TouchableOpacity style={styles.container}>
                 <Text style={styles.id}>{i + 1}</Text>
                 <Text style={styles.email}>{charity_lead_users.email}</Text>
-                <Text style={styles.charity_id}>Charity ID: {charity_lead_users.charity_id}</Text>
+                <Text style={styles.charity}>{charity_lead_users.title}</Text>
               </TouchableOpacity>
             </View>
           )
@@ -41,34 +41,34 @@ const styles = StyleSheet.create({
 
   container: {
     width: '100%',
+    borderWidth: 5,
+    borderStyle: 'solid',
+    borderColor: '#eee',
   },
 
   id: {
     position: 'absolute',
-    marginTop: 20,
-    top: -20,
-    right: 5,
+    right: 2,
+    top: 2,
     width: 25,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#444',
   },
 
-  charity_id: {
-    position: 'center',
+  charity: {
     right: 0,
-    width: 100,
-    fontWeight: 500,
+    width: '100%',
+    fontSize: 20,
     color: '#444',
   },
 
   email: {
-    // position: 'absolute',
     marginBottom: 10,
     right: 0,
-    width: '60%',
+    width: '100%',
     height: 20,
     fontSize: 20,
     fontWeight: 'bold',

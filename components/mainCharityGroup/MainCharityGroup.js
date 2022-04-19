@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
 
 export default class MainCharityGroup extends React.Component {
   constructor(props) {
@@ -29,27 +29,27 @@ export default class MainCharityGroup extends React.Component {
         <TouchableOpacity style={styles.imageContainer} onPress={() => this.handleBackClick(this.props)}>
           <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
         </TouchableOpacity>
-        <Text style={styles.title}>Main Charity Group Support</Text>
+        <Text style={styles.title}>Charity Lead</Text>
 
 
-        <TouchableOpacity style={styles.addButton} onPress={() => this.navigateToAddCharitySupportPage(this.props)}>
+        <TouchableOpacity style={styles.button} onPress={() => this.navigateToAddCharitySupportPage(this.props)}>
           <Text
             style={styles.buttonText}>
-            Add Charity Support
+            Add Support User
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.clickButton} onPress={() => this.navigateToClickCharitySupportPage(this.props)}>
+        <TouchableOpacity style={styles.button} onPress={() => this.navigateToClickCharitySupportPage(this.props)}>
           <Text
             style={styles.buttonText}>
-            Click Charity Support
+            Manage Support Users
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.veteransButton} onPress={() => this.navigateToVeteransPage(this.props)}>
+        <TouchableOpacity style={styles.button} onPress={() => this.navigateToVeteransPage(this.props)}>
           <Text
             style={styles.buttonText}>
-            Veterans
+            Veterans List
           </Text>
         </TouchableOpacity>
       </SafeAreaView>
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // To center horizontally on screen
     width: '60%',
     left: '20%',
   },
@@ -83,36 +82,18 @@ const styles = StyleSheet.create({
   title: {
     width: 400,
     marginTop: '5%',
+    marginBottom: '35%',
     marginLeft: '5%',
     fontSize: 35,
     textAlign: 'center',
   },
 
-  addButton: {
+  button: {
     borderRadius: 5,
-    height: 50,
+    height: 60,
+    width: 170,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 20,
-    color: 'red',
-    backgroundColor: '#000',
-  },
-
-  clickButton: {
-    borderRadius: 5,
-    height: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-    color: 'red',
-    backgroundColor: '#000',
-  },
-
-  veteransButton: {
-    borderRadius: 5,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
     marginTop: 20,
     color: 'red',
     backgroundColor: '#000',
@@ -120,7 +101,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     width: '100%',
-    justifyContent: 'center',
+    textAlign: 'center',
     padding: 10,
     color: '#fff',
   },

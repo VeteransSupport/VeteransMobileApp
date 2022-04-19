@@ -1,9 +1,7 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ScrollView, Alert, Image, TextInput, TouchableOpacity, } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Alert, TouchableOpacity, } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import SupportUser from "./SupportUser";
-import { Button } from "react-native-web";
+import SupportUser from "./EditSUser";
 
 export default class EditSupportUser extends React.Component {
     constructor(props) {
@@ -32,7 +30,7 @@ export default class EditSupportUser extends React.Component {
             })
             .then((results) => {
                 this.setState({ data: results.results });
-                console.log('results#########');
+                console.log('results');
                 console.log(results.results);
             })
             .catch((errStatusCode) => {
@@ -65,8 +63,6 @@ export default class EditSupportUser extends React.Component {
                 }
             })
             .then(() => {
-                // Support User deleted
-                // Change state
                 this.setState({ isRemoved: true });
                 this.props.navigation.navigate('Home_MCG');
             })
@@ -97,6 +93,7 @@ export default class EditSupportUser extends React.Component {
     render() {
         return (
             <View>
+                <Text style={styles.title}>Delete Support User?</Text>
                 <ScrollView style={styles.scrollView}>
                     <SupportUser data={this.state.data} />
                 </ScrollView>
@@ -115,6 +112,7 @@ export default class EditSupportUser extends React.Component {
 const styles = StyleSheet.create({
 
     scrollView: {
+        height: 120,
         marginTop: 25,
         marginBottom: 15,
         marginHorizontal: 20,
@@ -130,7 +128,6 @@ const styles = StyleSheet.create({
         height: 35,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10,
         color: 'red',
         backgroundColor: '#000',
         zIndex: 999,
@@ -141,5 +138,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
         fontWeight: 'bold'
+    },
+
+    title: {
+        marginTop: '5%',
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '5%',
+        fontSize: 35,
+        textAlign: 'center',
     },
 });

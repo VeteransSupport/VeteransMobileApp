@@ -14,7 +14,7 @@ export default class CharityGroup extends React.Component {
             authenticated: false,
             userTypeId: '',
             id: '',
-            page: 'charity', // charity, userList
+            page: 'charity',
             currentSupportUser: '',
         }
 
@@ -36,7 +36,6 @@ export default class CharityGroup extends React.Component {
     }
 
     verifyUserType = () => {
-        console.log('type_id: ' + this.state.userTypeId);
         if (this.state.userTypeId === '5' || this.state.userTypeId === '') {
             this.props.navigation.navigate('Home')
         } else {
@@ -71,7 +70,6 @@ export default class CharityGroup extends React.Component {
     }
 
     myCharityGroup = async (token) => {
-        console.log('id###: ' + this.state.id)
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead?token=' + token + '&id=' + this.state.id;
 
         fetch(url, {
@@ -110,7 +108,8 @@ export default class CharityGroup extends React.Component {
                 </TouchableOpacity>
                 {this.state.page === 'charity' &&
                     <View style={styles.container}>
-                        <Text style={styles.title}>Charity Groups</Text>
+                        <Text style={styles.title}>My Charity</Text>
+                        <Text style={styles.titleText}>Select Charity to view the Charity Lead {'&'} Veterans</Text>
 
                         <ScrollView style={styles.scrollView}>
                             <MCGSCharity data={this.state.data} handlePageChange={this.handlePageChange} />
@@ -139,16 +138,11 @@ export default class CharityGroup extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    card: {
-        width: '100%',
-        height: 100,
-        marginBottom: -20,
-        alignItems: 'flex-start',
+    container: {
+        flex: 1,
+        marginTop: 35,
+        paddingTop: StatusBar.currentHeight,
     },
-
-    // container: {
-    //     width: '100%',
-    // },
 
     id: {
         position: 'absolute',
@@ -163,16 +157,7 @@ const styles = StyleSheet.create({
         color: '#444',
     },
 
-    charity_id: {
-        position: 'center',
-        right: 0,
-        width: 100,
-        fontWeight: 500,
-        color: '#444',
-    },
-
     email: {
-        // position: 'absolute',
         marginBottom: 10,
         right: 0,
         width: '60%',
@@ -180,11 +165,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#444',
-    },
-    container: {
-        flex: 1,
-        marginTop: 35,
-        paddingTop: StatusBar.currentHeight,
     },
 
     imageContainer: {
@@ -207,7 +187,7 @@ const styles = StyleSheet.create({
     },
 
     scrollView: {
-        marginTop: 50,
+        marginTop: 20,
         marginHorizontal: 20,
         color: 'red'
     },
@@ -232,5 +212,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#fff',
         fontWeight: 'bold'
+    },
+
+    titleText: {
+        marginTop: 20,
+        textAlign: 'center',
     },
 });

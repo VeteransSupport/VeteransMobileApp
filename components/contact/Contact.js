@@ -1,14 +1,7 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Alert, Image, TextInput, TouchableOpacity, ScrollView } from "react-native";
-
-function empty(val){
-  let retVal = false;
-  if(typeof val === 'undefined' || val == '' || val == null || val == NaN || val == 0){
-    retVal = true;
-  }
-  return retVal;
-}
+import { StyleSheet, Text, View, SafeAreaView, Image, TextInput, TouchableOpacity, Alert } from "react-native";
+import email from 'react-native-email';
 
 export default class Contact extends React.Component {
   constructor(props) {
@@ -16,82 +9,130 @@ export default class Contact extends React.Component {
     this.state = {
       authenticated: false,
       email: '',
-      message: ''
+      cc: '',
+      bcc: '',
+      subject: '',
+      message: '',
     }
   }
 
-  handleEmail = (text) => {
-    this.setState({ email: text });
+  handleEmailTest() {
+    const to = [this.state.email]
+    email(to, {
+      cc: [this.state.cc],
+      bcc: [this.state.bcc],
+      subject: this.state.subject,
+      body: this.state.message
+    }).catch(console.error)
   }
 
-  handleMessage = (text) => {
-    this.setState({ message: text });
-  }
-
-  submitForm = () => {
-    //alert(this.state.message)
-
-    const email = this.state.email;
-    const message = this.state.message;
-
-    if(!empty(email) && !empty(message)){
-      //alert("All good.")
-      let form = new FormData();
-      form.append('email', email);
-      form.append('message', message);
-
-      let xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-          if(xhttp.responseText == 'success'){
-            alert("Thank you for you enquiry.");
-          } else{
-            alert("Something went wrong, please try again later.");
-          }
-        }
-      };
-      xhttp.open("POST",'http://unn-w18021407.newnumyspace.co.uk/kf6002/sendEmail.php');
-      xhttp.send(form);
+  handleSuccessClick() {
+    if (this.state.email !== '' && this.state.subject !== '') {
+        this.handleEmailTest();
     } else {
-      alert("please fill out all the required fields");
+        if (this.state.email === '' && this.state.subject === '' &&  this.state.message === '') {
+            Alert.alert('Incomplete Information', 'To:Email, Subject & Message is required.');
+        } else if (this.state.email === '' && this.state.subject !== ''  && this.state.message !== '') {
+          Alert.alert('Incomplete Information', 'To:Email is missing.');
+        } else if (this.state.email !== '' && this.state.subject === ''  && this.state.message !== '') {
+          Alert.alert('Incomplete Information', 'Subject is missing.');
+        } else if (this.state.email !== '' && this.state.subject !== ''  && this.state.message === '') {
+          Alert.alert('Incomplete Information', 'Message is missing.');
+        } else if (this.state.email !== '' && this.state.subject === ''  && this.state.message === '') {
+          Alert.alert('Incomplete Information', 'Subject & Message is missing.');
+        } else if (this.state.email === '' && this.state.subject !== ''  && this.state.message === '') {
+          Alert.alert('Incomplete Information', 'To:Email & Message is missing.');
+        } else if (this.state.email === '' && this.state.subject === ''  && this.state.message !== '') {
+          Alert.alert('Incomplete Information', 'To:Email & Subject is missing.');
+        } 
     }
+}
+
+  handleBackClick = (props) => {
+    props.navigation.navigate('Home_MCGS');
   }
 
   render() {
     return (
-        <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <TouchableOpacity style={styles.imageContainer} onPress={() => this.handleBackClick(this.props)}>
+          <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
+        </TouchableOpacity>
+        <Text style={styles.title}>Contact Form</Text>
 
-          <Text style={styles.title}>Contact Form</Text>
+        <StatusBar style="auto" />
 
-          <StatusBar style="auto" />
+        <View style={styles.inputoutside}>
+          <Text style={styles.headings}>To*: </Text>
           <View style={styles.inputViewEmail}>
             <TextInput
               style={styles.TextInputEmail}
               placeholder="e.g. example@gmail.com"
               placeholderTextColor="#aaa"
-              onChangeText={this.handleEmail}
+              onChangeText={(input) => this.setState({ email: input })}
             />
           </View>
-
-          <View style={styles.inputViewMessage}>
-            <TextInput
-              style={styles.TextInputMessage}
-              multiline={true}
-              placeholder="Content"
-              placeholderTextColor="#aaa"
-              onChangeText={this.handleMessage}
-            />
-          </View>
-
-          <TouchableOpacity
-            style={styles.sendEmailBtn}
-            onPress={this.submitForm}>
-            <Text
-              style={styles.submitText}>
-              Send Email
-            </Text>
-          </TouchableOpacity>
         </View>
+
+        <View style={styles.inputoutside}>
+          <Text style={styles.headings}>cc: </Text>
+        <View style={styles.inputViewEmail}>
+          <TextInput
+            style={styles.TextInputEmail}
+            placeholder="cc"
+            placeholderTextColor="#aaa"
+            onChangeText={(input) => this.setState({ cc: input })}
+          />
+        </View>
+        </View>
+
+        <View style={styles.inputoutside}>
+          <Text style={styles.headings}>bcc: </Text>
+        <View style={styles.inputViewEmail}>
+          <TextInput
+            style={styles.TextInputEmail}
+            placeholder="bcc"
+            placeholderTextColor="#aaa"
+            onChangeText={(input) => this.setState({ bcc: input })}
+          />
+        </View>
+        </View>
+
+        <View style={styles.inputoutside}>
+          <Text style={styles.headings}>subject*: </Text>
+        <View style={styles.inputViewEmail}>
+          <TextInput
+            style={styles.TextInputEmail}
+            placeholder="subject"
+            placeholderTextColor="#aaa"
+            onChangeText={(input) => this.setState({ subject: input })}
+          />
+        </View>
+        </View>
+
+        <View style={styles.inputoutside}>
+          <Text style={styles.headings}>message*: </Text>
+        <View style={styles.inputViewMessage}>
+          <TextInput
+            style={styles.TextInputMessage}
+            multiline={true}
+            placeholder="Content"
+            placeholderTextColor="#aaa"
+            onChangeText={(input) => this.setState({ message: input })}
+
+          />
+        </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.sendEmailBtn}
+          onPress={() => this.handleSuccessClick()}>
+          <Text
+            style={styles.submitText}>
+            Send Email
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
     )
   }
 }
@@ -101,9 +142,30 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // To center horizontally on screen
     width: '60%',
     left: '20%',
+  },
+  
+  inputoutside: {
+    flexDirection:"row"
+  },
+
+  headings: {
+    width: 80,
+    fontSize: 16,
+  },
+
+  imageContainer: {
+    width: '100%',
+    height: 74,
+    marginLeft: 200,
+  },
+
+  image: {
+    position: 'absolute',
+    width: 119,
+    height: 74,
+    alignSelf: 'center',
   },
 
   image: {
@@ -124,8 +186,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 2,
     borderColor: '#000',
-    width: '100%',
-    height: 45,
+    width: '110%',
+    height: 40,
     marginBottom: 20,
     color: '#fff',
     alignItems: 'center',
@@ -136,7 +198,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 2,
     borderColor: '#000',
-    width: '100%',
+    width: '110%',
     height: 145,
     marginBottom: 20,
     color: '#fff',

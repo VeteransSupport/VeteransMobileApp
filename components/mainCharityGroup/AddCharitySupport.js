@@ -1,5 +1,4 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Alert, Button, Image, TextInput, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -31,7 +30,6 @@ export default class AddCharitySupport extends React.Component {
     }
 
     verityUserType = () => {
-        console.log(this.state.userTypeId);
     }
 
     getUserTypeId = async (token) => {
@@ -135,7 +133,8 @@ export default class AddCharitySupport extends React.Component {
                     <Image style={styles.image} source={require("../../assets/urbackupTemporary_Transparent.png")} />
                 </TouchableOpacity>
 
-                <Text style={styles.title}>Add Charity Support Page</Text>
+                <Text style={styles.title}>Add a Support User!</Text>
+                <Text style={styles.titleText}>Please Enter Email {'&'} Password</Text>
 
                 <View style={styles.inputView}>
                     <TextInput
@@ -199,8 +198,14 @@ const styles = StyleSheet.create({
 
     title: {
         fontSize: 32,
-        marginBottom: 40,
+        marginTop: 40,
+        marginBottom: 10,
         fontWeight: 'bold',
+        textAlign: 'center',
+    },
+
+    titleText: {
+        marginBottom: 40,
     },
 
     inputView: {
@@ -225,7 +230,7 @@ const styles = StyleSheet.create({
     },
 
     addUserBtn: {
-        width: '80%',
+        width: 170,
         borderRadius: 5,
         height: 50,
         alignItems: 'center',
