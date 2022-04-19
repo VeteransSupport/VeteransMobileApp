@@ -7,15 +7,43 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      TnC: false
+      TnC: false,
+      name: '',
+      email: '',
+      service: '',
+      phone: '',
     }
   }
 
   componentDidMount() {
+    if (this.props.type === 'changedetails') {
+      this.setState({
+        name: this.props.name,
+        email: this.props.email,
+        service: this.props.service,
+        phone: this.props.phone,
+      });
+    }
   }
 
   toggleSwitch = (value) => {
     this.setState({ TnC: value });
+  }
+
+  updateInput(inputName, input) {
+    if (inputName === 'name') {
+      this.setState({name: input});
+      this.props.handleNameClick(input)
+    } else if (inputName === 'email') {
+      this.setState({email: input});
+      this.props.handleEmailClick(input)
+    } else if (inputName === 'service') {
+      this.setState({service: input});
+      this.props.handleServiceNumberClick(input)
+    } else if (inputName === 'phone') {
+      this.setState({phone: input});
+      this.props.handleNumberClick(input)
+    }
   }
 
   render() {
@@ -39,28 +67,32 @@ export default class SignUp extends React.Component {
             <TextInput style={styles.inputField}
               placeholder='Full Name'
               placeholderTextColor='#aaa'
-              onChangeText={(input) => this.props.handleNameClick(input)} />
+              value={this.state.name}
+              onChangeText={(input) => this.updateInput('name', input)} />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Email: </Text>
             <TextInput style={styles.inputField}
               placeholder='Email'
               placeholderTextColor='#aaa'
-              onChangeText={(input) => this.props.handleEmailClick(input)} />
+              value={this.state.email}
+              onChangeText={(input) => this.updateInput('email', input)} />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Service Number: </Text>
             <TextInput style={styles.inputField}
               placeholder='Service Number'
               placeholderTextColor='#aaa'
-              onChangeText={(input) => this.props.handleServiceNumberClick(input)} />
+              value={this.state.service}
+              onChangeText={(input) => this.updateInput('service', input)} />
           </View>
           <View style={styles.input}>
             <Text style={styles.formText}>Phone Number: </Text>
             <TextInput style={styles.inputField}
               placeholder='Phone Number'
               placeholderTextColor='#aaa'
-              onChangeText={(input) => this.props.handleNumberClick(input)} />
+              value={this.state.phone}
+              onChangeText={(input) => this.updateInput('phone', input)} />
           </View>
           {this.props.type === 'signup' &&
             <View style={styles.input}>

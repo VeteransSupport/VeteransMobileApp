@@ -35,7 +35,6 @@ export default class Home extends React.Component {
     if (this.state.authenticated) {
       props.navigation.navigate('Welcome');
     } else {
-      // props.navigation.navigate('Login');
       this.setState({ currentPage: 'login' });
     }
   }
@@ -44,7 +43,6 @@ export default class Home extends React.Component {
     if (this.state.authenticated) {
       props.navigation.navigate('Welcome');
     } else {
-      // props.navigation.navigate('Login');
       this.setState({ currentPage: 'charityLogin' });
     }
   }

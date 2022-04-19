@@ -29,10 +29,26 @@ export default class NominatedContacts extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.type === 'changedetails') {
+      if (this.props.nominated.length > 0) {
+        this.props.nominated.forEach((contact, i) => {
+          if (i + 1 === 1) {
+            this.setState({nameOne: contact.name, emailOne: contact.email});
+          } else if (i + 1 === 2) {
+            this.setState({nameTwo: contact.name, emailTwo: contact.email});
+          } else if (i + 1 === 3) {
+            this.setState({nameThree: contact.name, emailThree: contact.email});
+          }
+        });
+      }
+      this.setState({code: this.props.sixDigitCode});
+    }
   }
 
   handleSixDigitCodeChange(input) {
-    this.setState({ code: input.replace(/[^0-9]/g, '') });
+    const validatedCode = input.replace(/[^0-9]/g, '');
+    this.setState({ code: validatedCode });
+    this.props.handleSixDigitCodeClick(input);
   }
 
   handleInputChange(type, nominatedId, value) {
@@ -130,12 +146,14 @@ export default class NominatedContacts extends React.Component {
                     <Text style={styles.formText}>Name </Text>
                     <TextInput style={styles.inputField}
                       placeholder='Full Name'
+                      value={this.state.nameOne}
                       onChangeText={(value) => this.handleInputChange('name', 1, value)} />
                   </View>
                   <View style={styles.input}>
                     <Text style={styles.formText}>Email </Text>
                     <TextInput style={styles.inputField}
                       placeholder='Email'
+                      value={this.state.emailOne}
                       onChangeText={(value) => this.handleInputChange('email', 1, value)} />
                   </View>
                 </View>
@@ -146,12 +164,14 @@ export default class NominatedContacts extends React.Component {
                     <Text style={styles.formText}>Name </Text>
                     <TextInput style={styles.inputField}
                       placeholder='Full Name'
+                      value={this.state.nameTwo}
                       onChangeText={(value) => this.handleInputChange('name', 2, value)} />
                   </View>
                   <View style={styles.input}>
                     <Text style={styles.formText}>Email </Text>
                     <TextInput style={styles.inputField}
                       placeholder='Email'
+                      value={this.state.emailTwo}
                       onChangeText={(value) => this.handleInputChange('email', 2, value)} />
                   </View>
                 </View>
@@ -162,12 +182,14 @@ export default class NominatedContacts extends React.Component {
                     <Text style={styles.formText}>Name </Text>
                     <TextInput style={styles.inputField}
                       placeholder='Full Name'
+                      value={this.state.nameThree}
                       onChangeText={(value) => this.handleInputChange('name', 3, value)} />
                   </View>
                   <View style={styles.input}>
                     <Text style={styles.formText}>Email </Text>
                     <TextInput style={styles.inputField}
                       placeholder='Email'
+                      value={this.state.emailThree}
                       onChangeText={(value) => this.handleInputChange('email', 3, value)} />
                   </View>
                 </View>

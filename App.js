@@ -36,7 +36,6 @@ function Root() {
       <Drawer.Screen name="Change Details" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={ChangeDetails} />
       <Drawer.Screen name="EditCharityPage" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={EditCharityPage} />
       <Drawer.Screen name="SignUp" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={SignUpPage} />
-      <Drawer.Screen name="Login" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Login} />
       <Drawer.Screen name="Logout" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Logout} />
       <Drawer.Screen name="Home_MCG" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={MainCharityGroup} />
       <Drawer.Screen name="AddCharitySupport" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={AddCharitySupport} />
