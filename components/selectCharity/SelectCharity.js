@@ -9,6 +9,7 @@ export default class SelectCharity extends React.Component {
     super(props);
     this.state = {
       charitiesList: [],
+      retrievedCharityId: '',
       selectedCharity: '1',
     }
   }
@@ -16,6 +17,9 @@ export default class SelectCharity extends React.Component {
   componentDidMount() {
     this.props.handleCharityClick(this.state.selectedCharity);
     this.getCharitiesList();
+    if (this.props.type === 'changedetails') {
+      this.setState({ retrievedCharityId: this.props.charityID });
+    }
   }
 
   getCharitiesList() {
@@ -33,7 +37,11 @@ export default class SelectCharity extends React.Component {
   }
 
   changeCharity(id) {
-    this.setState({ selectedCharity: id });
+    if (this.props.type === 'changedetails') {
+      this.setState({ retrievedCharityId: id });
+    } else {
+      this.setState({ selectedCharity: id });
+    }
     this.props.handleCharityClick(id);
   }
 
@@ -56,7 +64,7 @@ export default class SelectCharity extends React.Component {
 
           <TouchableOpacity style={styles.dropdownContainer}>
             <Picker
-              selectedValue={this.state.selectedCharity}
+              selectedValue={this.props.type === 'changedetails' ? this.state.retrievedCharityId : this.state.selectedCharity}
               style={styles.dropdown}
               onValueChange={(itemValue, itemIndex) => this.changeCharity(itemValue)}>
               {this.state.charitiesList.map((charity, i) => {

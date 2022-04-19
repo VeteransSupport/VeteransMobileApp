@@ -35,7 +35,6 @@ export default class SignUpPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state.charityID);
   }
 
   handleLogoClick = () => {
@@ -98,7 +97,7 @@ export default class SignUpPage extends React.Component {
       setTimeout(this.signUpUser, 250);
     } else {
       Alert.alert('Something went wrong', 'There was an error when saving your nominated contacts information. Please try again.');
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Home');
     }
   }
 
@@ -132,11 +131,11 @@ export default class SignUpPage extends React.Component {
         // User created
         // Redirect to Home Page
         this.props.navigation.navigate('Home');
-        Alert.alert('Registration Complete', 'Thank you ' + this.state.name + ' , click the "Military" button and login using your email and password.');
+        Alert.alert('Registration Complete', 'Thank you ' + this.state.name + ', click the "Military" button and login using your email and password.');
       })
       .catch((errStatusCode) => {
         console.log('something went wrong :: Status Code ' + errStatusCode.message);
-        this.props.handleNavigationClick('Home');
+        this.props.navigation.navigate('Home');
         this._clear();
         Alert.alert('Something went wrong', 'You have been logged out. Your session may have expired.\n\nPlease log back in and recreate your charity.');
       });

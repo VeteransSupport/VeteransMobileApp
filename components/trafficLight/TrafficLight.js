@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Alert, Button, Image, TouchableOpacity } from 'react-native';
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,7 +18,8 @@ export default class TrafficLight extends React.Component {
     }
 
     if (!this.state.authenticated) {
-      this.props.navigation.navigate('Login');
+      this.props.navigation.navigate('Home');
+      Alert.alert('Please Log in', 'Youre currently not logged in. Please Login to access that page.')
     }
   }
 
