@@ -64,7 +64,7 @@ export default class EditSupportUser extends React.Component {
             })
             .then(() => {
                 this.setState({ isRemoved: true });
-                this.props.navigation.navigate('Home_MCG');
+                this.props.handleBClick()
             })
             .catch((errStatusCode) => {
                 console.log("something went wrong ", errStatusCode);
@@ -104,6 +104,15 @@ export default class EditSupportUser extends React.Component {
                         Delete
                     </Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.backBtn}
+                    onPress={() => this.props.handleBClick()}>
+                    <Text
+                        style={styles.backText}>
+                        BACK
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -113,6 +122,7 @@ const styles = StyleSheet.create({
 
     scrollView: {
         height: 120,
+        width: 350,
         marginTop: 25,
         marginBottom: 15,
         marginHorizontal: 20,
@@ -147,5 +157,26 @@ const styles = StyleSheet.create({
         marginBottom: '5%',
         fontSize: 35,
         textAlign: 'center',
+    },
+
+    backBtn: {
+        position: 'absolute',
+        top: '100%',
+        right: 15,
+        width: '25%',
+        borderRadius: 3,
+        height: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'red',
+        backgroundColor: '#000',
+        zIndex: 999,
+    },
+
+    backText: {
+        width: '100%',
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold'
     },
 });

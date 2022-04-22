@@ -1,59 +1,111 @@
 import React from 'react';
-import { Text, StyleSheet, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import CharityLeadHome from "../mainCharityGroup/CharityLeadHome";
+import AddCharitySupport from "../mainCharityGroup/AddCharitySupport";
+import ClickCharitySupport from "../mainCharityGroup/ClickCharitySupport";
+import Veterans from "../mainCharityGroup/Veterans";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class MainCharityGroup extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      data: [],
+      token: false,
+      authenticated: false,
+      userTypeId: '', 
+      type: 'charityLeadHome',
+      pageNumber: 1,
+    }
+
+    this.handleLogoClick = this.handleLogoClick.bind(this);
+    this.handleNextClick = this.handleNextClick.bind(this);
   }
 
-  navigateToAddCharitySupportPage = props => {
-    props.navigation.navigate('AddCharitySupport');
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('token');
+    if (token !== null) {
+      this.setState({ token: token });
+      this.getUserTypeId(token);
+    }
+
+    setTimeout(this.verityUserType,
+      500
+    );
   }
 
-  navigateToClickCharitySupportPage = props => {
-    props.navigation.navigate('ClickCharitySupport');
+  verityUserType = () => { 
+    if (this.state.userTypeId !== '3' || this.state.userTypeId === '') {
+      this.props.navigation.navigate('Home')
+    }
   }
 
-  navigateToVeteransPage = props => {
-    props.navigation.navigate('Veterans');
+  handleLogoClick = () => {
+    this.props.navigation.navigate('Charity Lead');
   }
 
-  handleBackClick = (props) => {
-    props.navigation.navigate('Home');
+  handleNextClick = (pageNumber) => {
+    this.setState({ pageNumber: pageNumber });
+  }
+
+  getUserTypeId = async (token) => {
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+    let formData = new FormData();
+    formData.append('token', token);
+
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers(),
+      body: formData
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          throw Error(JSON.stringify(response.status))
+        }
+      })
+      .then((data) => {
+        this.setState({ authenticated: true, userTypeId: data.results[0].type_id });
+      })
+      .catch((errStatusCode) => {
+        console.log('something went wrong :: Status Code ' + errStatusCode.message);
+        this.props.navigation.navigate('Home');
+        this._clear();
+        Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log in again.');
+      });
   }
 
   render() {
+
+    let page = <CharityLeadHome type={this.state.type} CharityLeadHome
+      handleNextClick={this.handleNextClick}
+      handleLogoClick={this.handleLogoClick} />;
+
+    if (this.state.pageNumber === 2) {
+      page = <AddCharitySupport type={this.state.type}
+        handleNextClick={this.handleNextClick}
+        handleLogoClick={this.handleLogoClick}
+      />;
+    } else if (this.state.pageNumber === 3) {
+      page = <ClickCharitySupport type={this.state.type}
+        handleNextClick={this.handleNextClick}
+        handleLogoClick={this.handleLogoClick}
+      />;
+    } else if (this.state.pageNumber === 4) {
+      page = <Veterans type={this.state.type} CharityLeadHome
+        handleNextClick={this.handleNextClick}
+        handleLogoClick={this.handleLogoClick} />
+    } else if (this.state.pageNumber === 5) {
+      page = <CharityLeadHome type={this.state.type} CharityLeadHome
+        handleNextClick={this.handleNextClick}
+        handleLogoClick={this.handleLogoClick} />
+    }
+
     return (
-      <SafeAreaView style={styles.container}>
-        <TouchableOpacity style={styles.imageContainer} onPress={() => this.handleBackClick(this.props)}>
-          <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Charity Lead</Text>
-
-
-        <TouchableOpacity style={styles.button} onPress={() => this.navigateToAddCharitySupportPage(this.props)}>
-          <Text
-            style={styles.buttonText}>
-            Add Support User
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={() => this.navigateToClickCharitySupportPage(this.props)}>
-          <Text
-            style={styles.buttonText}>
-            Manage Support Users
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={() => this.navigateToVeteransPage(this.props)}>
-          <Text
-            style={styles.buttonText}>
-            Veterans List
-          </Text>
-        </TouchableOpacity>
-      </SafeAreaView>
-
+      <View style={styles.container}>
+        {page}
+      </View>
     );
   }
 }

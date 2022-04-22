@@ -18,6 +18,7 @@ export default class ClickCharitySupport extends React.Component {
         }
 
         this.handlePageChange = this.handlePageChange.bind();
+        this.handleBClick = this.handleBClick.bind(this);
     }
 
     async componentDidMount() {
@@ -90,20 +91,20 @@ export default class ClickCharitySupport extends React.Component {
             });
     }
 
-    navigateToPrevious = props => {
-        props.navigation.navigate('Home_MCG');
-    }
-
     handlePageChange = (id, pageName) => {
         this.setState({ page: pageName, currentSupportUser: id });
+    }
+
+    handleBClick = () => {
+        this.props.handleNextClick(5);
     }
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                    <TouchableOpacity style={styles.imageContainer} onPress={() => this.navigateToPrevious(this.props)}>
-                        <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
-                    </TouchableOpacity>
+                <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.handleNextClick(5)}>
+                    <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
+                </TouchableOpacity>
                 {this.state.page === 'list' &&
                     <View style={styles.container}>
                         <Text style={styles.title}>List of Support Users</Text>
@@ -111,6 +112,14 @@ export default class ClickCharitySupport extends React.Component {
                         <ScrollView style={styles.scrollView}>
                             <SupportUser data={this.state.data} handlePageChange={this.handlePageChange} />
                         </ScrollView>
+                        <TouchableOpacity
+                            style={styles.backBtn}
+                            onPress={() => this.props.handleNextClick(5)}>
+                            <Text
+                                style={styles.backText}>
+                                BACK
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 }
                 {this.state.page === 'user' &&
@@ -118,17 +127,10 @@ export default class ClickCharitySupport extends React.Component {
                         <EditSupportUser handlePageChange={this.handlePageChange}
                             supportUserID={this.state.currentSupportUser}
                             token={this.state.token}
-                            navigation={this.props.navigation}/>
+                            navigation={this.props.navigation}
+                            handleBClick={this.handleBClick} />
                     </View>
                 }
-                <TouchableOpacity
-                    style={styles.backBtn}
-                    onPress={() => this.navigateToPrevious(this.props)}>
-                    <Text
-                        style={styles.backText}>
-                        BACK
-                    </Text>
-                </TouchableOpacity>
             </SafeAreaView>
         )
     }
@@ -144,6 +146,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: '100%',
         height: 74,
+        alignSelf: 'center',
     },
 
     image: {
@@ -154,6 +157,7 @@ const styles = StyleSheet.create({
     },
 
     backBtn: {
+        marginBottom: 40,
         position: 'absolute',
         top: '100%',
         right: 15,
@@ -162,7 +166,7 @@ const styles = StyleSheet.create({
         height: 35,
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: -50,
+        marginTop: 350,
         color: 'red',
         backgroundColor: '#000',
         zIndex: 999,
@@ -176,17 +180,17 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        marginTop: '5%',
-        marginLeft: '5%',
-        marginRight: '5%',
-        marginBottom: '5%',
-        fontSize: 35,
+        fontSize: 25,
         textAlign: 'center',
+        marginLeft: 100,
+        width: 200,
     },
 
     scrollView: {
+        height: 450,
+        width: 350,
         marginTop: 25,
-        marginBottom: 15,
+        marginBottom: 70,
         marginHorizontal: 20,
         color: 'red'
     },

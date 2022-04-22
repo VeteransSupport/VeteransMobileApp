@@ -1,12 +1,10 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
-import { View, StyleSheet } from 'react-native';
-import SupportHome from "../mainCharityGroupSupport/SupportHome";
-import CharityGroup from "../mainCharityGroupSupport/CharityGroup";
-import CharityLead from "../mainCharityGroupSupport/CharityLead";
+import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import Charity from "../charity/Charity";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class MainCharityGroupSupport extends React.Component {
+export default class SupportHome extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,12 +12,7 @@ export default class MainCharityGroupSupport extends React.Component {
             token: false,
             authenticated: false,
             userTypeId: '',
-            type: 'supportUser',
-            pageNumber: 1,
         }
-
-        this.handleLogoClick = this.handleLogoClick.bind(this);
-        this.handleNextClick = this.handleNextClick.bind(this);
     }
 
     async componentDidMount() {
@@ -31,23 +24,11 @@ export default class MainCharityGroupSupport extends React.Component {
         }
 
         setTimeout(this.verityUserType,
-            500
+            1000
         );
     }
 
-    verityUserType = () => {
-        if (this.state.userTypeId !== '4' || this.state.userTypeId === '') {
-            this.props.navigation.navigate('Home')
-        }
-    }
-
-    handleLogoClick = () => {
-        this.props.navigation.navigate('Support User');
-    }
-
-    handleNextClick = (pageNumber) => {
-        this.setState({ pageNumber: pageNumber });
-    }
+    verityUserType = () => { }
 
     getUserTypeId = async (token) => {
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
@@ -90,29 +71,26 @@ export default class MainCharityGroupSupport extends React.Component {
     }
 
     render() {
-        let page = <SupportHome type={this.state.type}SupportHome
-            handleNextClick={this.handleNextClick}
-            handleLogoClick={this.handleLogoClick} />;
-
-        if (this.state.pageNumber === 2) {
-            page = <CharityGroup type={this.state.type}
-                handleNextClick={this.handleNextClick}
-                handleLogoClick={this.handleLogoClick}
-                />;
-        } else if (this.state.pageNumber === 3) {
-            page = <CharityLead type={this.state.type}
-                handleLogoClick={this.handleLogoClick}
-                />;
-        } else if (this.state.pageNumber === 4) {
-            page = <SupportHome type={this.state.type}SupportHome
-            handleNextClick={this.handleNextClick}
-            handleLogoClick={this.handleLogoClick} />
-        }
-
         return (
-            <View style={styles.container}>
-                {page}
-            </View>
+            <SafeAreaView style={styles.container}>
+                <TouchableOpacity style={styles.imageContainer} >
+                    <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
+                </TouchableOpacity>
+                <View style={styles.container}>
+                    <Text style={styles.title}>Group Support User</Text>
+
+                    <ScrollView style={styles.scrollView}>
+                        <Charity data={this.state.data} />
+                    </ScrollView>
+
+                    <TouchableOpacity style={styles.CGButton} onPress={() => this.props.handleNextClick(2)}>
+                        <Text
+                            style={styles.CGText}>
+                            My Charity
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </SafeAreaView>
         );
     }
 }
@@ -144,6 +122,7 @@ const styles = StyleSheet.create({
     },
 
     scrollView: {
+        height: 400,
         marginTop: 25,
         marginHorizontal: 20,
         color: 'red'

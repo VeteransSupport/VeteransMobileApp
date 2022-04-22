@@ -86,17 +86,15 @@ export default class Veterans extends React.Component {
             });
     }
 
-    navigateToPrevious = props => {
-        props.navigation.navigate('Home_MCG');
-    }
-
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.imageContainer} onPress={() => this.navigateToPrevious(this.props)}>
+                <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.handleNextClick(5)}>
                     <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
                 </TouchableOpacity>
-                <Text style={styles.title}>List of Veterans</Text>
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>List of Veterans</Text>
+                </View>
 
                 <ScrollView style={styles.scrollView}>
                     <VeteranUsers
@@ -104,9 +102,14 @@ export default class Veterans extends React.Component {
                         token={this.state.token} />
                 </ScrollView>
 
-                <View style={styles.bkBtn}>
-                    <Button color="black" title="back" onPress={() => this.navigateToPrevious(this.props)} />
-                </View>
+                <TouchableOpacity
+                    style={styles.bkBtn}
+                    onPress={() => this.props.handleNextClick(5)}>
+                    <Text
+                        style={styles.backText}>
+                        BACK
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -115,39 +118,64 @@ export default class Veterans extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 35,
+        marginTop: 60,
+        justifyContent: 'center',
+        height: 574,
         paddingTop: StatusBar.currentHeight,
     },
 
     imageContainer: {
         width: '100%',
         height: 74,
+        alignSelf: 'center',
+        left: 0,
     },
 
     image: {
         position: 'absolute',
         width: 119,
         height: 74,
-        alignSelf: 'center',
+    },
+
+    textContainer: {
+        alignItems: 'center',
+        marginBottom: 10,
     },
 
     title: {
-        marginTop: '5%',
-        marginLeft: '5%',
-        marginRight: '5%',
-        marginBottom: '5%',
-        fontSize: 35,
+        fontSize: 20,
+        fontWeight: 'bold',
         textAlign: 'center',
     },
 
     scrollView: {
+        height: 450,
+        width: 350,
         marginTop: 25,
-        marginBottom: 15,
-        marginHorizontal: 20,
-        color: 'red'
+        marginHorizontal: 10,
+        color: 'red',
     },
 
     bkBtn: {
         marginBottom: 40,
+        position: 'absolute',
+        top: '100%',
+        right: 15,
+        width: '25%',
+        borderRadius: 3,
+        height: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: -50,
+        color: 'red',
+        backgroundColor: '#000',
+        zIndex: 999,
+    },
+
+    backText: {
+        width: '100%',
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold'
     },
 })

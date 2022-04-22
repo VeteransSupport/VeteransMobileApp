@@ -31,7 +31,7 @@ export default class SupportUser extends React.Component {
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: 35,
+    height: 40,
     marginTop: 30,
     alignItems: 'flex-start',
   },

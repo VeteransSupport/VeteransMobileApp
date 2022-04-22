@@ -81,7 +81,7 @@ export default class AddCharitySupport extends React.Component {
                 }
             })
             .then(() => {
-                this.props.navigation.navigate('Home_MCG');
+                this.props.handleNextClick(5);
             })
             .catch((errStatusCode) => {
                 console.log("something went wrong ", errStatusCode);
@@ -92,10 +92,6 @@ export default class AddCharitySupport extends React.Component {
                 this._clear();
                 Alert.alert('Something went wrong', 'Your session may have expired\n\nPlease log back in and recreate your charity.');
             });
-    }
-
-    navigateToPrevious = props => {
-        props.navigation.navigate('Home_MCG');
     }
 
     async _clear() {
@@ -129,12 +125,13 @@ export default class AddCharitySupport extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.imageContainer} onPress={() => this.navigateToPrevious(this.props)}>
+                <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.handleNextClick(5)}>
                     <Image style={styles.image} source={require("../../assets/urbackupTemporary_Transparent.png")} />
                 </TouchableOpacity>
-
-                <Text style={styles.title}>Add a Support User!</Text>
-                <Text style={styles.titleText}>Please Enter Email {'&'} Password</Text>
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Add a Support User!</Text>
+                    <Text style={styles.titleText}>Please Enter Email {'&'} Password</Text>
+                </View>
 
                 <View style={styles.inputView}>
                     <TextInput
@@ -167,10 +164,15 @@ export default class AddCharitySupport extends React.Component {
                     </Text>
                 </TouchableOpacity>
 
-                <View style={styles.bkBtn}>
-                    <Button color="black" title="back" onPress={() => this.navigateToPrevious(this.props)} />
-                </View>
-            </View>
+                <TouchableOpacity
+                    style={styles.bkBtn}
+                    onPress={() => this.props.handleNextClick(5)}>
+                    <Text
+                        style={styles.backText}>
+                        BACK
+                    </Text>
+                </TouchableOpacity>
+            </View >
         )
     }
 }
@@ -181,10 +183,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '60%',
-        left: '20%',
+    },
+
+    textContainer: {
+        height: 100,
+        width: 300,
+        alignItems: 'center',
+        marginBottom: 10,
     },
 
     imageContainer: {
+        marginTop: '40%',
         width: '100%',
         height: 74,
     },
@@ -197,7 +206,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 32,
+        fontSize: 15,
         marginTop: 40,
         marginBottom: 10,
         fontWeight: 'bold',
@@ -213,7 +222,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 2,
         borderColor: '#000',
-        width: '100%',
+        width: 230,
         height: 45,
         marginBottom: 20,
         color: '#fff',
@@ -247,6 +256,22 @@ const styles = StyleSheet.create({
     },
 
     bkBtn: {
-        marginTop: 20,
+        marginTop: 50,
+        marginBottom: 40,
+        width: '45%',
+        borderRadius: 3,
+        height: 35,
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'red',
+        backgroundColor: '#000',
+        zIndex: 999,
+    },
+
+    backText: {
+        width: '100%',
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold'
     },
 })

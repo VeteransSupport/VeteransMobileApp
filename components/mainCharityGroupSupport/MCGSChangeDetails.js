@@ -26,7 +26,7 @@ export default class MCGSChangeDetails extends React.Component {
         // Setting timeout to wait for
         // the state to be updated
         setTimeout(this.verityUserType,
-            1000
+            500
         );
     }
 
@@ -86,7 +86,7 @@ export default class MCGSChangeDetails extends React.Component {
                 }
             })
             .then(() => {
-                this.props.navigation.navigate('Home_MCGS');
+                this.props.navigation.navigate('Support User');
             })
             .catch((errStatusCode) => {
                 console.log("something went wrong ", errStatusCode);
@@ -100,7 +100,7 @@ export default class MCGSChangeDetails extends React.Component {
     }
 
     navigateToPrevious = props => {
-        props.navigation.navigate('Home_MCGS');
+        props.navigation.navigate('Support User');
     }
 
     async _clear() {
