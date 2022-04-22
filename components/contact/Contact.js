@@ -15,7 +15,7 @@ export default class Contact extends React.Component {
       message: '',
     }
   }
-
+  
   handleEmailTest() {
     const to = [this.state.email]
     email(to, {
@@ -49,7 +49,7 @@ export default class Contact extends React.Component {
 }
 
   handleBackClick = (props) => {
-    props.navigation.navigate('Home_MCGS');
+    props.navigation.navigate('Support User');
   }
 
   render() {

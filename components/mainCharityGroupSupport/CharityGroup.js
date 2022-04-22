@@ -31,7 +31,7 @@ export default class CharityGroup extends React.Component {
         // Setting timeout to wait for
         // the state to be updated
         setTimeout(this.verifyUserType,
-            1000
+            500
         );
     }
 
@@ -43,6 +43,13 @@ export default class CharityGroup extends React.Component {
         }
     }
 
+
+    /**
+     * Sends the token to the api/user endpoint to validate
+     * the JWT and retrieve the user type_id & id from it.
+     * 
+     * @param {string} token The login JWT
+     */
     getUserTypeId = async (token) => {
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
@@ -69,6 +76,13 @@ export default class CharityGroup extends React.Component {
             });
     }
 
+
+    /**
+     * Sends the token to the api/user endpoint to validate
+     * the JWT and retrieve the user type_id from it.
+     * 
+     * @param {string} token The login JWT
+     */
     myCharityGroup = async (token) => {
         let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead?token=' + token + '&id=' + this.state.id;
 
@@ -92,10 +106,6 @@ export default class CharityGroup extends React.Component {
             });
     }
 
-    handleBackClick = (props) => {
-        props.navigation.navigate('Home_MCGS');
-    }
-
     handlePageChange = (id, pageName) => {
         this.setState({ page: pageName, currentSupportUser: id });
     }
@@ -103,7 +113,7 @@ export default class CharityGroup extends React.Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TouchableOpacity style={styles.imageContainer} onPress={() => this.handleBackClick(this.props)}>
+                <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.handleNextClick(4)}>
                     <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
                 </TouchableOpacity>
                 {this.state.page === 'charity' &&
@@ -119,14 +129,14 @@ export default class CharityGroup extends React.Component {
                 {this.state.page === 'userList' &&
                     <View style={styles.container}>
                         <CharityLead
-                            handlePageChange={this.handlePageChange}
+                            onPress={() => this.props.handleNextClick(3)}
                             supportUserID={this.state.currentSupportUser}
                             token={this.state.token} />
                     </View>
                 }
                 <TouchableOpacity
                     style={styles.backBtn}
-                    onPress={() => this.handleBackClick(this.props)}>
+                    onPress={() => this.props.handleNextClick(4)}>
                     <Text
                         style={styles.backText}>
                         BACK
@@ -142,6 +152,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 35,
         paddingTop: StatusBar.currentHeight,
+        height: 450,
     },
 
     id: {

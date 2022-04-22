@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   card: {
     width: '90%',
     marginLeft: '5%',
-    height: 35,
+    height: 50,
     marginTop: 30,
     alignItems: 'flex-start',
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     right: 0,
     width: '100%',
-    height: 20,
+    height: 30,
     fontSize: 20,
     fontWeight: 'bold',
     color: '#444',

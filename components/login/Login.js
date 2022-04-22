@@ -16,6 +16,8 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       authenticated: false,
+      token: '',
+      userTypeId: '',
       email: '',
       password: '',
       removeUser: false,
@@ -31,7 +33,7 @@ export default class Login extends React.Component {
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
-        this.setState({ authenticated: true })
+        this.setState({ authenticated: true, token: value })
       } else {
       }
     } catch (e) {
@@ -86,8 +88,48 @@ export default class Login extends React.Component {
     props.navigation.navigate('SignUp');
   }
 
-  handleSuccessClick = (props) => {
-    props.navigation.navigate('Welcome');
+  handleSuccessClick = () => {
+    this.getUserTypeId(this.state.token);
+
+    setTimeout(this.redirect,
+      250
+    );
+  }
+
+  redirect = () => {
+    if (this.state.userTypeId === '3' || this.state.userTypeId === '4') {
+      this.clearAllAsyncStorage();
+      this.props.navigation.navigate('Welcome');
+      Alert.alert('Unauthorised', 'Please login through the charity login portal accessible through the home page.');
+    } else {
+      this.props.navigation.navigate('Welcome');
+    }
+  }
+
+  getUserTypeId = async (token) => {
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+    let formData = new FormData();
+    formData.append('token', token);
+
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers(),
+      body: formData
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json()
+        } else {
+          throw Error(response.statusText)
+        }
+      })
+      .then((data) => {
+        this.setState({ userTypeId: data.results[0].type_id });
+      })
+      .catch((err) => {
+        console.log("something went wrong ", err);
+        Alert.alert('Something went wrong', 'Please log out and log in again.');
+      });
   }
 
   handleLoginClick = async () => {
@@ -115,8 +157,8 @@ export default class Login extends React.Component {
         // store token and change state to authenticated
         if ("token" in data.results) {
           this._storeData('token', data.results.token);
-          this.setState({ authenticated: true });
-          this.handleSuccessClick(this.props);
+          this.setState({ authenticated: true, token: data.results.token });
+          this.handleSuccessClick();
         }
       })
       .catch((err) => {
@@ -185,7 +227,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // To center horizontally on screen
     width: '60%',
     marginLeft: '20%',
   },

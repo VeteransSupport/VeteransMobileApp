@@ -33,8 +33,6 @@ export default class VeteranUsers extends React.Component {
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    height: 35,
-    marginTop: 30,
     alignItems: 'flex-start',
   },
 
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     right: 0,
     width: '100%',
-    height: 20,
+    height: 40,
     fontSize: 20,
     fontWeight: 'bold',
     color: '#444',
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
   charity: {
     right: 0,
     width: '100%',
-    fontSize: 20,
+    fontSize: 18,
     color: '#444',
   },
 

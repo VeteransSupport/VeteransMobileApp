@@ -34,18 +34,16 @@ export default class CharityLead extends React.Component {
       })
       .catch((err) => {
         console.log("something went wrong ", err);
-        Alert.alert('Error', 'Couldnt get list of Support Users');
+        Alert.alert('Error', 'Couldnt get list of Users');
       });
   }
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <View>
           <ScrollView style={styles.scrollView}>
             <MCGSCharityUsers data={this.state.data} />
           </ScrollView>
-        </View>
       </SafeAreaView>
     );
   }
@@ -56,6 +54,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 35,
     paddingTop: StatusBar.currentHeight,
+  },
+
+  scrollView: {
+      marginHorizontal: 10,
+      color: 'red'
   },
 
 });

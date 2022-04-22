@@ -97,12 +97,14 @@ export default class CharityLogin extends React.Component {
   }
 
   redirect = () => {
-    if (this.state.userTypeId === '3' || this.state.userTypeId === '1') {
-      this.props.navigation.navigate('Home_MCG');
+    if (this.state.userTypeId === '3') {
+      this.props.navigation.navigate('Charity Lead');
     } else if (this.state.userTypeId === '4') {
-      this.props.navigation.navigate('Home_MCGS');
+      this.props.navigation.navigate('Support User');
     } else {
+      this.clearAllAsyncStorage();
       this.props.navigation.navigate('Welcome');
+      Alert.alert('Unauthorised', 'Please login through the military login portal accessible through the home page.');
     }
   }
 
