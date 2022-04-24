@@ -1,18 +1,26 @@
 import React from 'react';
-import { Text, View, StyleSheet, Alert, Button, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Alert, } from 'react-native';
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState } from 'react/cjs/react.production.min';
+
 
 export default class TrafficLight extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      authenticated: false
+      authenticated: false,
+      token: '',
+      mood: '',
+      data: [],
+      dateAndTime: ''
     }
   }
 
   async componentDidMount() {
+    this._retrieveData('token');
+
     if (await AsyncStorage.getItem('token') !== null) {
       this.setState({ authenticated: true });
     }
@@ -23,32 +31,124 @@ export default class TrafficLight extends React.Component {
     }
   }
 
+  _retrieveData = async (key) => {
+    try {
+      const value = await AsyncStorage.getItem(key);
+      if (value !== null) {
+        this.setState({ authenticated: true, token: value })
+      } else {
+      }
+    } catch (e) {
+      console.log('Could not store token in Async storage: ' + e);
+      Alert.alert('Error getting token', 'Could not retrieve session token.');
+    }
+  }
+
+  updateUserMood = () => {
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/update_user';
+    let formData = new FormData()
+    formData.append('request', 'update_mood')
+    formData.append('token', this.state.token)
+    formData.append('mood', this.state.mood)
+    formData.append('last_updated', this.state.dateAndTime)
+
+    fetch(url, {
+      method: 'POST',
+      headers: new Headers(),
+      body: formData
+    })
+      .then((response) => {
+        if (response.status === 204) {
+          return response
+        } else {
+          throw Error(response.statusText)
+        }
+      })
+      .then(() => {
+        if(this.state.mood == 'Green')
+        {
+        Alert.alert('Success!', 'Mood sucessfully stored as green.');
+        } else if(this.state.mood == 'Amber')
+        {
+          Alert.alert('Success!', 'Mood sucessfully stored as amber.');
+        } else if(this.state.mood == 'Red'){
+          Alert.alert('Mood successfully stored!', 'Mood sucessfully stored as red. \n\nWe hope you dont need them but here are some numbers to call: \nThe Samaritans - 116 123 \nCombat Stress - 0800 138 1619');
+        }
+      })
+      .catch((err) => {
+        console.log("something went wrong ", err);
+        Alert.alert('Unable to store mood. Please log out and back in again.')
+      })
+  }
+
+  handleButtonClick(colour) {
+    this.setState({ mood: colour });
+    this.setCurrentDateandTime();
+    setTimeout(this.updateUserMood, 250);
+
+  }
+
+  setCurrentDateandTime = () => {
+
+    var currentdate = new Date();
+    var datetime = currentdate.getDate() + "/"
+      + (currentdate.getMonth() + 1) + "/"
+      + currentdate.getFullYear() + " @ "
+      + currentdate.getHours() + ":"
+      + currentdate.getMinutes() + ":"
+      + currentdate.getSeconds();
+    console.log(datetime);
+
+    this.setState({ dateAndTime: datetime });
+  }
+
+  test = () => {
+    console.log(this.state.dateAndTime, this.state.mood, this.state.token);
+  }
+
+
   handleLogoClick = (props) => {
     props.navigation.navigate('Home');
   }
 
   render() {
+    const crisis = () => {
+      if (this.state.mood == 'Red') {
+        return (
+          <View style={styles.crisisbar}>
+            <Text style={styles.crisisText}>We hope you don't need to use these numbers but just incase:</Text>
+            <Text style={styles.crisisText}>The Samaritans - 116 123</Text>
+            <Text style={styles.crisisText}>Combat Stress - 0800 138 1619</Text>
+            <Text style={styles.crisisText}>111 or 999</Text>
+            <Text style={styles.crisisText2}>Remember You are not alone, people care and it will get better!</Text>
+          </View>
+        )
+      }
+    }
+
+    const state = this.state;
     return (
       <View style={styles.page}>
+        {crisis()}
         <View style={styles.header}>
           <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
             <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
           </TouchableOpacity>
-
         </View>
+
         <View style={styles.adjustTop}>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.roundButton1} />
+            <TouchableOpacity style={styles.roundButton1} onPress={() => this.handleButtonClick('Green')} />
             <Text style={styles.buttonText}>I'm feeling good and don't need any support right now! I wouldn't mind a social though.</Text>
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.roundButton2} />
+            <TouchableOpacity style={styles.roundButton2} onPress={() => this.handleButtonClick('Amber')} />
             <Text style={styles.buttonText}>I'm feeling alright but I've been feeling a bit low or irritable for a couple of days now. I wouldn't mind a chat or a brew.</Text>
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.roundButton3} />
+            <TouchableOpacity style={styles.roundButton3} onPress={() => this.handleButtonClick('Red')} />
             <Text style={styles.buttonText}>If I'm being honest with myself, I need some help. I'm consistantly feeling low or irritable.</Text>
           </View>
 
@@ -64,7 +164,6 @@ export default class TrafficLight extends React.Component {
           </View>
         </View>
       </View>
-
     )
   }
 }
@@ -78,7 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     alignSelf: 'center',
-    width: '90%',
+    width: '100%',
   },
 
   header: {
@@ -86,6 +185,31 @@ const styles = StyleSheet.create({
     width: "100%",
     marginBottom: 0,
     paddingBottom: 0,
+    paddingLeft: 20,
+    paddingTop: 20,
+  },
+
+  crisisbar: {
+    width: "100%",
+    backgroundColor: '#ADD8E6',
+    height: "20%",
+    justifyContent: "center",
+  },
+
+  crisisText: {
+    paddingTop: 3,
+    alignSelf: "center",
+    fontSize: 12,
+    color: "white",
+  },
+
+  crisisText2: {
+    paddingTop: 3,
+    alignSelf: "center",
+    fontSize: 12,
+    margin: 2,
+    color: "white",
+    fontWeight: "bold"
   },
 
   adjustTop: {
@@ -98,7 +222,8 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: "row",
     alignItems: "center",
-
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 
   buttonText: {
@@ -109,7 +234,9 @@ const styles = StyleSheet.create({
 
   footer: {
     flex: 1,
-    alignContent: "center"
+    alignContent: "center",
+    width: "90%",
+    alignSelf: "center"
   },
 
   roundButton1: {
