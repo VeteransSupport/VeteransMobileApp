@@ -20,6 +20,8 @@ export default class MCGSCharityUsers extends React.Component {
               <TouchableOpacity style={styles.container}>
                 <Text style={styles.id}>{i + 1}</Text>
                 <Text style={styles.email}>{charity_lead_users.email}</Text>
+                {charity_lead_users.type_id === '3' && <Text style={styles.cid}>Lead</Text>}
+                {charity_lead_users.type_id === '5' && <Text style={styles.vid}>Veteran</Text>}
                 <Text style={styles.charity}>{charity_lead_users.title}</Text>
               </TouchableOpacity>
             </View>
@@ -32,8 +34,8 @@ export default class MCGSCharityUsers extends React.Component {
 
 const styles = StyleSheet.create({
   card: {
-    width: '90%',
-    marginLeft: '5%',
+    width: '100%',
+    // marginLeft: '5%',
     height: 50,
     marginTop: 30,
     alignItems: 'flex-start',
@@ -56,6 +58,30 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#444',
+  },
+
+  cid: {
+    position: 'absolute',
+    right: 30,
+    top: 2,
+    width: 45,
+    borderWidth: 1,
+    borderColor: '#000',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8b0000',
+  },
+
+  vid: {
+    position: 'absolute',
+    right: 30,
+    top: 2,
+    width: 60,
+    borderWidth: 1,
+    borderColor: '#000',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#9b870c',
   },
 
   charity: {
