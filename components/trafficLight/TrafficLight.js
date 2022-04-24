@@ -101,11 +101,10 @@ export default class TrafficLight extends React.Component {
 
     this.setState({ dateAndTime: datetime });
   }
-
-  test = () => {
-    console.log(this.state.dateAndTime, this.state.mood, this.state.token);
+  
+  handleQuizClick(props) {
+    props.navigation.navigate('Quiz');
   }
-
 
   handleLogoClick = (props) => {
     props.navigation.navigate('Home');
@@ -154,7 +153,7 @@ export default class TrafficLight extends React.Component {
 
           <View style={styles.footer}>
             <TouchableOpacity
-              // onPress={() => this.handleQuizClick(this.props)} // TODO: need to impliment
+              onPress={() => this.handleQuizClick(this.props)}
               style={styles.continueBtn}>
               <Text
                 style={styles.continueText}>
