@@ -35,7 +35,7 @@ export default class SupportHome extends React.Component {
   }
 
   verityUserType = () => { 
-    if (this.state.userTypeId !== '1' || this.state.userTypeId === '') {
+    if (this.state.userTypeId !== '2' || this.state.userTypeId === '') {
       this.props.navigation.navigate('Home');
     }
   }
