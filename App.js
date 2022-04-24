@@ -17,14 +17,13 @@ import EditCharityPage from "./components/editCharityPage/EditCharityPage";
 import MainCharityGroup from "./components/mainCharityGroup/MainCharityGroup";
 import MainCharityGroupSupport from "./components/mainCharityGroupSupport/MainCharityGroupSupport";
 import MCGSChangeDetails from "./components/mainCharityGroupSupport/MCGSChangeDetails";
-import Quiz from "./components/quiz/Quiz";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 function Root() {
   return (
-    <Drawer.Navigator initialRouteName="Welcome">
+    <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen name="Welcome" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={TrafficLight} />
       <Drawer.Screen name="CharitiesList" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={CharitiesList} />
       <Drawer.Screen name="Home" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Home} />
@@ -38,7 +37,6 @@ function Root() {
       <Drawer.Screen name="Charity Lead" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={MainCharityGroup} />
       <Drawer.Screen name="Support User" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={MainCharityGroupSupport} />
       <Drawer.Screen name="Support User | Change Details" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={MCGSChangeDetails} />
-      <Drawer.Screen name="Quiz" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Quiz} />
     </Drawer.Navigator>
   );
 }

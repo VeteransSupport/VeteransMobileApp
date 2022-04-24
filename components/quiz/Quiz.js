@@ -18,7 +18,7 @@ export default class Quiz extends React.Component {
       orange: 0,
       red: 0,
       score: 0,
-      result: '',
+      result: null,
       resultsArr: [],
     }
   }
@@ -145,11 +145,11 @@ export default class Quiz extends React.Component {
 
     // Calculating result
     if ((this.state.green > 3 || this.state.green === 6) && this.state.red === 0) {
-      this.setState({ result: 'Green' });
+      this.setState({ result: 1 });
     } else if (this.state.orange >= 3 || this.state.red < 3) {
-      this.setState({ result: 'Amber' });
+      this.setState({ result: 2 });
     } else {
-      this.setState({ result: 'Red' });
+      this.setState({ result: 3 });
     }
 
     this.setState({ hasSelected: false, renderResults: this.state.renderResults + 1 });
@@ -255,6 +255,9 @@ export default class Quiz extends React.Component {
           </View>
 
           <View style={styles.nextButtonPlacement}>
+          <TouchableOpacity onPress={() => this.handleLogoClick(this.props)} style ={styles.quizHomeButton}>
+             <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Home</Text>
+             </TouchableOpacity>
             {/* Either next button or finish quiz button depending on which question the quiz is on. */}
             {this.state.currQuestion == this.state.questions.length - 1 ? (
               <TouchableOpacity onPress={() => this.finishQuiz()} style={styles.finishButtonStyle}>
@@ -264,9 +267,12 @@ export default class Quiz extends React.Component {
               <TouchableOpacity onPress={() => this.nextQuestion()} style={styles.nextButtonStyle}>
                 <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Next</Text>
               </TouchableOpacity>
+              
             )}
             {/*Either next button or finish quiz button depending on which question the quiz is on. */}
           </View>
+
+
         </View>
       );
     } else if (this.state.renderResults === 2) {
@@ -432,9 +438,10 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '20%',
     backgroundColor: 'white',
+    flexDirection: 'row',
     alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingRight: 20,
+    justifyContent: 'space-around',
+    padding: 0,
   },
 
   nextButtonStyle: {
@@ -442,6 +449,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'black',
     padding: 5,
+  },
+
+  quizHomeButton: {
+    width: 90,
+    alignItems: 'center',
+    backgroundColor: 'black',
+    padding: 5,
+    right: 0,
+    bottom: 0,
+  },
+
+  quizHomeButtonPlacement: {
+    width: '100%',
+    height: '10%',
+    backgroundColor: 'pink',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 20,
   },
 
   finishButtonStyle: {
