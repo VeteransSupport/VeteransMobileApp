@@ -1,5 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Alert, Button, Image, TextInput, Picker, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Alert, Button, Image, TextInput, TouchableOpacity } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class AddSupport extends React.Component {
@@ -224,7 +225,7 @@ export default class AddSupport extends React.Component {
                     <Picker selectedValue={this.state.userType} style={styles.TextInput} onValueChange={this.handleType}>
                         {this.state.dataType.map((user_types, i) => {
                             return (
-                                <Picker.Item key={i + 1} label={user_types.type} value={user_types.id} />
+                                <Picker.Item key={user_types.id} label={user_types.type} value={user_types.id} />
                             )
                         })}
                     </Picker>
@@ -232,7 +233,7 @@ export default class AddSupport extends React.Component {
                     <Picker selectedValue={this.state.charity} style={styles.TextInput} onValueChange={this.handleCharity}>
                         {this.state.dataCharity.map((charities, i) => {
                             return (
-                                <Picker.Item key={i + 1} label={charities.title} value={charities.id} />
+                                <Picker.Item key={charities.id} label={charities.title} value={charities.id} />
                             )
                         })}
                     </Picker>

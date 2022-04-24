@@ -15,17 +15,18 @@ export default class AppAdminHome extends React.Component {
         </TouchableOpacity>
         <Text style={styles.title}>Admin</Text>
 
-        <TouchableOpacity style={styles.button} onPress={() => this.props.handleNextClick(2)}>
+        <TouchableOpacity style={styles.button} onPress={() => this.props.handleCharityClick()}>
           <Text
             style={styles.buttonText}>
             Manage Charities
           </Text>
         </TouchableOpacity>
 
+
         <TouchableOpacity style={styles.button} onPress={() => this.props.handleNextClick(3)}>
           <Text
             style={styles.buttonText}>
-            Add a User
+            Add Support User
           </Text>
         </TouchableOpacity>
 

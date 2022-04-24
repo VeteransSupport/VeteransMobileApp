@@ -20,6 +20,7 @@ export default class AdminHome extends React.Component {
 
     this.handleLogoClick = this.handleLogoClick.bind(this);
     this.handleNextClick = this.handleNextClick.bind(this);
+    this.handleCharityClick = this.handleCharityClick.bind(this);
   }
 
   async componentDidMount() {
@@ -40,12 +41,12 @@ export default class AdminHome extends React.Component {
     }
   }
 
+  handleCharityClick = () => {
+    this.props.navigation.navigate('EditCharityPage');
+  }
+
   handleLogoClick = () => {
     this.props.navigation.navigate('App Admin');
-  }
-  
-  handleCharities = () => {
-    this.props.navigation.navigate('EditCharityPage');
   }
 
   handleNextClick = (pageNumber) => {
@@ -84,11 +85,10 @@ export default class AdminHome extends React.Component {
 
     let page = <AppAdminHome type={this.state.type} AppAdminHome
       handleNextClick={this.handleNextClick}
-      handleLogoClick={this.handleLogoClick} />;
+      handleLogoClick={this.handleLogoClick}
+      handleCharityClick={this.handleCharityClick} />;
 
-    if (this.state.pageNumber === 2) {
-      this.handleCharities();
-    } else if (this.state.pageNumber === 3) {
+    if (this.state.pageNumber === 3) {
       page = <AddSupport type={this.state.type}
         handleNextClick={this.handleNextClick}
         handleLogoClick={this.handleLogoClick}
