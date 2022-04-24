@@ -10,7 +10,7 @@ export default class TrafficLight extends React.Component {
     this.state = {
       authenticated: false,
       token: '',
-      mood: '',
+      mood: null,
       data: [],
       dateAndTime: '',
       page: 1,
@@ -135,21 +135,21 @@ export default class TrafficLight extends React.Component {
               </TouchableOpacity>
             </View>
 
-            <View style={styles.adjustTop}>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton1} onPress={() => this.handleButtonClick(1)} />
-                <Text style={styles.buttonText}>I'm feeling good and don't need any support right now! I wouldn't mind a social though.</Text>
-              </View>
+        <View style={styles.adjustTop}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton1} onPress={() => this.handleButtonClick(1)} />
+            <Text style={styles.buttonText}>I'm feeling good and don't need any support right now! I wouldn't mind a social though.</Text>
+          </View>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton2} onPress={() => this.handleButtonClick(2)} />
-                <Text style={styles.buttonText}>I'm feeling alright but I've been feeling a bit low or irritable for a couple of days now. I wouldn't mind a chat or a brew.</Text>
-              </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton2} onPress={() => this.handleButtonClick(2)} />
+            <Text style={styles.buttonText}>I'm feeling alright but I've been feeling a bit low or irritable for a couple of days now. I wouldn't mind a chat or a brew.</Text>
+          </View>
 
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton3} onPress={() => this.handleButtonClick(3)} />
-                <Text style={styles.buttonText}>If I'm being honest with myself, I need some help. I'm consistantly feeling low or irritable.</Text>
-              </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton3} onPress={() => this.handleButtonClick(3)} />
+            <Text style={styles.buttonText}>If I'm being honest with myself, I need some help. I'm consistantly feeling low or irritable.</Text>
+          </View>
 
               <View style={styles.footer}>
                 <TouchableOpacity
