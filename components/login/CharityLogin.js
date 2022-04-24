@@ -97,14 +97,14 @@ export default class CharityLogin extends React.Component {
   }
 
   redirect = () => {
-    if (this.state.userTypeId === '1') {
-      this.props.navigation.navigate('App Admin');
-    } else if (this.state.userTypeId === '2') {
-      this.props.navigation.navigate('App Support');
+    if (this.state.userTypeId === '4') {
+      this.props.navigation.navigate('Support User');
     } else if (this.state.userTypeId === '3') {
       this.props.navigation.navigate('Charity Lead');
-    } else if (this.state.userTypeId === '4') {
-      this.props.navigation.navigate('Support User');
+    } else if (this.state.userTypeId === '2') {
+      this.props.navigation.navigate('App Support');
+    } else if (this.state.userTypeId === '1') {
+      this.props.navigation.navigate('App Admin');
     } else {
       this.clearAllAsyncStorage();
       this.props.navigation.navigate('Welcome');
