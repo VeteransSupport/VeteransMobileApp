@@ -183,24 +183,18 @@ export default class Quiz extends React.Component {
       .then((response) => {
         // Successful authentication will return
         // a 200 status code.
-        if (response.status === 200) {
-          return response.json()
+        if (response.status === 204) {
+          return response
         } else {
           throw Error(response.statusText)
         }
       })
       .then((data) => {
-        // If results include a token,
-        // store token and change state to authenticated
-        if ("token" in data.results) {
-          this._storeData('token', data.results.token);
-          this.setState({ authenticated: true });
-          this.handleSuccessClick(this.props);
-        }
+        Alert.alert('Quiz Completed', 'Your results have been saved');
       })
       .catch((err) => {
         console.log("something went wrong ", err);
-        Alert.alert('Unable to login!', 'Make sure your username and password are correct.');
+        Alert.alert('Unable to save results!', 'Please log out and log back in again');
       })
   }
 
@@ -255,9 +249,9 @@ export default class Quiz extends React.Component {
           </View>
 
           <View style={styles.nextButtonPlacement}>
-          <TouchableOpacity onPress={() => this.handleLogoClick(this.props)} style ={styles.quizHomeButton}>
-             <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Home</Text>
-             </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.handleLogoClick(this.props)} style={styles.quizHomeButton}>
+              <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Home</Text>
+            </TouchableOpacity>
             {/* Either next button or finish quiz button depending on which question the quiz is on. */}
             {this.state.currQuestion == this.state.questions.length - 1 ? (
               <TouchableOpacity onPress={() => this.finishQuiz()} style={styles.finishButtonStyle}>
@@ -267,7 +261,7 @@ export default class Quiz extends React.Component {
               <TouchableOpacity onPress={() => this.nextQuestion()} style={styles.nextButtonStyle}>
                 <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Next</Text>
               </TouchableOpacity>
-              
+
             )}
             {/*Either next button or finish quiz button depending on which question the quiz is on. */}
           </View>
@@ -298,9 +292,9 @@ export default class Quiz extends React.Component {
           <View style={styles.trafficLightSpaceRESULTS}>
             <View style={styles.trafficLightSpace2RESULTS}>
               {/*<Image source={require('../../assets/trafficLightTemporary.png')}/>*/}
-              {this.state.result == 'green' && <Image source={require('../../assets/greenResult.png')} />}
-              {this.state.result == 'orange' && <Image source={require('../../assets/amberResult.png')} />}
-              {this.state.result == 'red' && <Image source={require('../../assets/redResult.png')} />}
+              {this.state.result == 1 && <Image source={require('../../assets/greenResult.png')} />}
+              {this.state.result == 2 && <Image source={require('../../assets/amberResult.png')} />}
+              {this.state.result == 3 && <Image source={require('../../assets/redResult.png')} />}
 
               <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Finish Quiz</Text>
 
