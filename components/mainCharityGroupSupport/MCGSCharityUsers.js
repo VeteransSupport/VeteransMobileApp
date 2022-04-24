@@ -35,7 +35,6 @@ export default class MCGSCharityUsers extends React.Component {
 const styles = StyleSheet.create({
   card: {
     width: '100%',
-    // marginLeft: '5%',
     height: 50,
     marginTop: 30,
     alignItems: 'flex-start',
