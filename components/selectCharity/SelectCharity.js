@@ -23,7 +23,7 @@ export default class SelectCharity extends React.Component {
   }
 
   getCharitiesList() {
-    return fetch('http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
+    return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
       .then((response) => response.json())
       .then((responseJson) => {
         // set charitiesList state as the data returned

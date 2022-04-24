@@ -37,7 +37,7 @@ export default class MCGSChangeDetails extends React.Component {
     }
 
     getUserTypeId = async (token) => {
-        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
         formData.append('token', token);
 
@@ -65,7 +65,7 @@ export default class MCGSChangeDetails extends React.Component {
     }
 
     updateSupportUser() {
-        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_support_users';
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_support_users';
         let formData = new FormData();
         formData.append('token', this.state.token);
         formData.append('request', 'edit');

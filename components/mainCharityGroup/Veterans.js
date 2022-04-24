@@ -38,7 +38,7 @@ export default class Veterans extends React.Component {
     }
 
     getUserTypeId = async (token) => {
-        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
         formData.append('token', token);
 
@@ -64,7 +64,7 @@ export default class Veterans extends React.Component {
     }
 
     getVeteranList = async (token) => {
-        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/veterans?token=' + token;
+        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/veterans?token=' + token;
 
         fetch(url, {
             method: 'GET',

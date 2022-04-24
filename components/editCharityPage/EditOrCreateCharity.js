@@ -26,7 +26,7 @@ export default class EditOrCreateCharity extends React.Component {
   }
 
   editCharity() {
-    let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_charity';
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_charity';
     let formData = new FormData();
     formData.append('token', this.state.token);
     formData.append('request', 'edit');
@@ -62,7 +62,7 @@ export default class EditOrCreateCharity extends React.Component {
   }
 
   getCharityById() {
-    let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities?id=' + this.props.charityId;
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities?id=' + this.props.charityId;
     fetch(url)
       .then((response) => {
         if (response.status === 200) {
@@ -84,7 +84,7 @@ export default class EditOrCreateCharity extends React.Component {
   }
 
   editOrCreateNewCharity() {
-    let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_charity';
+    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_charity';
     let formData = new FormData();
 
     if (this.state.editView) {
