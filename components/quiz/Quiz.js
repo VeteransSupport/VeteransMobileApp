@@ -249,9 +249,9 @@ export default class Quiz extends React.Component {
           </View>
 
           <View style={styles.nextButtonPlacement}>
-          <TouchableOpacity onPress={() => this.handleLogoClick(this.props)} style ={styles.quizHomeButton}>
-             <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Home</Text>
-             </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.handleLogoClick(this.props)} style={styles.quizHomeButton}>
+              <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Home</Text>
+            </TouchableOpacity>
             {/* Either next button or finish quiz button depending on which question the quiz is on. */}
             {this.state.currQuestion == this.state.questions.length - 1 ? (
               <TouchableOpacity onPress={() => this.finishQuiz()} style={styles.finishButtonStyle}>
@@ -261,7 +261,7 @@ export default class Quiz extends React.Component {
               <TouchableOpacity onPress={() => this.nextQuestion()} style={styles.nextButtonStyle}>
                 <Text style={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}>Next</Text>
               </TouchableOpacity>
-              
+
             )}
             {/*Either next button or finish quiz button depending on which question the quiz is on. */}
           </View>
