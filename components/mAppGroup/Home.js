@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import CharityLeadHome from "../mAppGroup/CharityLeadHome";
-import AddSupport from "../mAppGroup/AddSupport";
-import ClickSupport from "../mAppGroup/ClickSupport";
-import Veterans from "../mAppGroup/Veterans";
+import AppAdminHome from "./AppAdminHome";
+import AddSupport from "./supportUser/AddSupport";
+import ClickSupport from "./supportUser/ClickSupport";
+import Veterans from "./Veterans";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Home extends React.Component {
