@@ -6,12 +6,15 @@ export default class AddSupport extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            dataType: [],
+            dataCharity: [],
             token: false,
             authenticated: false,
             userTypeId: '',
             email: '',
             password: '',
+            userType: '',
+            charity: '',
         }
     }
 
@@ -21,6 +24,7 @@ export default class AddSupport extends React.Component {
             this.setState({ token: token });
             this.getUserTypeId(token);
             this.getUserRegistry(token);
+            this.getCharities(token);
         }
 
         // Setting timeout to wait for
@@ -65,9 +69,10 @@ export default class AddSupport extends React.Component {
         let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
         formData.append('token', this.state.token);
+        formData.append('request', 'registry');
 
         fetch(url, {
-            method: 'GET',
+            method: 'POST',
             headers: new Headers(),
             body: formData
         })
@@ -79,7 +84,30 @@ export default class AddSupport extends React.Component {
                 }
             })
             .then((responseJson) => {
-                this.setState({ data: responseJson.results });
+                this.setState({ dataType: responseJson.results });
+            })
+            .catch((err) => {
+                console.log("something went wrong ", err);
+                Alert.alert('Error', 'Couldnt get list of Support Users');
+            });
+    }
+
+    getCharities = async (token) => {
+        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities';
+
+        fetch(url, {
+            method: 'GET',
+            headers: new Headers()
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.json()
+                } else {
+                    throw Error(response.status)
+                }
+            })
+            .then((responseJson) => {
+                this.setState({ dataCharity: responseJson.results });
             })
             .catch((err) => {
                 console.log("something went wrong ", err);
@@ -94,6 +122,8 @@ export default class AddSupport extends React.Component {
         formData.append('request', 'add');
         formData.append('email', this.state.email);
         formData.append('password', this.state.password);
+        formData.append('type_id', this.state.userType);
+        formData.append('charity_id', this.state.charity);
 
         fetch(url, {
             method: 'POST',
@@ -134,8 +164,16 @@ export default class AddSupport extends React.Component {
         this.setState({ password: text });
     }
 
+    handleType = (value) => {
+        this.setState({ userType: value });
+    }
+
+    handleCharity = (value) => {
+        this.setState({ charity: value });
+    }
+
     handleSuccessClick = props => {
-        if (this.state.email !== '' && this.state.password !== '') {
+        if (this.state.email !== '' && this.state.password !== '' && this.state.charity !== '' && this.state.userType !== '') {
             this.createNewSupportUser();
             Alert.alert('Support user created:', this.state.email);
         } else {
@@ -156,7 +194,7 @@ export default class AddSupport extends React.Component {
                     <Image style={styles.image} source={require("../../../assets/urbackupTemporary_Transparent.png")} />
                 </TouchableOpacity>
                 <View style={styles.textContainer}>
-                    <Text style={styles.title}>Add a Support User!</Text>
+                    <Text style={styles.title}>Add a User!</Text>
                     <Text style={styles.titleText}>Please Enter Email {'&'} Password</Text>
                 </View>
 
@@ -182,16 +220,22 @@ export default class AddSupport extends React.Component {
                     />
                 </View>
 
-                <View style={styles.inputView}>
-                {this.props.data.map((user_types, i) => {
-                    return (
-                        <View style={styles.TextInput} key={user_types.id}>
-                            <Picker selectedValue={'4'} style={styles.TextInput} onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
-                                <Picker.Item label={user_types.type} value={user_types.id} />
-                            </Picker>
-                        </View>
-                    )
-                })}
+                <View style={styles.textContainer}>
+                    <Picker selectedValue={this.state.userType} style={styles.TextInput} onValueChange={this.handleType}>
+                        {this.state.dataType.map((user_types, i) => {
+                            return (
+                                <Picker.Item key={i + 1} label={user_types.type} value={user_types.id} />
+                            )
+                        })}
+                    </Picker>
+
+                    <Picker selectedValue={this.state.charity} style={styles.TextInput} onValueChange={this.handleCharity}>
+                        {this.state.dataCharity.map((charities, i) => {
+                            return (
+                                <Picker.Item key={i + 1} label={charities.title} value={charities.id} />
+                            )
+                        })}
+                    </Picker>
                 </View>
 
                 <TouchableOpacity
@@ -205,7 +249,7 @@ export default class AddSupport extends React.Component {
 
                 <TouchableOpacity
                     style={styles.bkBtn}
-                    onPress={() => this.props.handleNextClick(5)}>
+                    onPress={() => this.props.handleNextClick(6)}>
                     <Text
                         style={styles.backText}>
                         BACK
@@ -232,7 +276,7 @@ const styles = StyleSheet.create({
     },
 
     imageContainer: {
-        marginTop: '40%',
+        marginTop: '5%',
         width: '100%',
         height: 74,
     },

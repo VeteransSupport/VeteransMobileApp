@@ -25,7 +25,7 @@ export default class AppAdminHome extends React.Component {
         <TouchableOpacity style={styles.button} onPress={() => this.props.handleNextClick(3)}>
           <Text
             style={styles.buttonText}>
-            Add Support User
+            Add a User
           </Text>
         </TouchableOpacity>
 
