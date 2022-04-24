@@ -1,9 +1,7 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity, Alert, } from 'react-native';
-import Login from '../login/Login';
-import Logout from '../logout/Logout';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from 'react/cjs/react.production.min';
+import Quiz from '../quiz/Quiz';
 
 
 export default class TrafficLight extends React.Component {
@@ -14,7 +12,8 @@ export default class TrafficLight extends React.Component {
       token: '',
       mood: null,
       data: [],
-      dateAndTime: ''
+      dateAndTime: '',
+      page: 1,
     }
   }
 
@@ -100,9 +99,9 @@ export default class TrafficLight extends React.Component {
 
     this.setState({ dateAndTime: datetime });
   }
-  
-  handleQuizClick(props) {
-    props.navigation.navigate('Quiz');
+
+  handleQuizClick() {
+    this.setState({page: 2});
   }
 
   handleLogoClick = (props) => {
@@ -126,13 +125,15 @@ export default class TrafficLight extends React.Component {
 
     const state = this.state;
     return (
-      <View style={styles.page}>
-        {crisis()}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
-            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
-          </TouchableOpacity>
-        </View>
+      <View style={styles.mainContainer}>
+        {this.state.page === 1 &&
+          <View style={styles.page}>
+            {crisis()}
+            <View style={styles.header}>
+              <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
+                <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+              </TouchableOpacity>
+            </View>
 
         <View style={styles.adjustTop}>
           <View style={styles.buttonContainer}>
@@ -150,23 +151,33 @@ export default class TrafficLight extends React.Component {
             <Text style={styles.buttonText}>If I'm being honest with myself, I need some help. I'm consistantly feeling low or irritable.</Text>
           </View>
 
-          <View style={styles.footer}>
-            <TouchableOpacity
-              onPress={() => this.handleQuizClick(this.props)}
-              style={styles.continueBtn}>
-              <Text
-                style={styles.continueText}>
-                Unsure? Take the quiz!
-              </Text>
-            </TouchableOpacity>
+              <View style={styles.footer}>
+                <TouchableOpacity
+                  onPress={() => this.handleQuizClick()}
+                  style={styles.continueBtn}>
+                  <Text
+                    style={styles.continueText}>
+                    Unsure? Take the quiz!
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-        </View>
+        }
+        {this.state.page === 2 &&
+          <Quiz navigation={this.props.navigation}/>
+        }
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    width: '100%',
+  },
+
   page: {
     flex: 1,
     display: 'flex',
