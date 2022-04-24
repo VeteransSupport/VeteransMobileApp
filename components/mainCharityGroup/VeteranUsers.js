@@ -21,6 +21,9 @@ export default class VeteranUsers extends React.Component {
                 <Text style={styles.id}>{i + 1}</Text>
                 <Text style={styles.email}>{user.email}</Text>
                 <Text style={styles.charity}>{user.title}</Text>
+                {user.mood === '1' && <Text style={styles.green}>Green</Text>}
+                {user.mood === '2' && <Text style={styles.amber}>Amber</Text>}
+                {user.mood === '3' && <Text style={styles.red}>Red</Text>}
               </TouchableOpacity>
             </View>
           )
@@ -56,7 +59,6 @@ const styles = StyleSheet.create({
   },
 
   email: {
-    marginBottom: 10,
     right: 0,
     width: '100%',
     height: 40,
@@ -70,6 +72,27 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 18,
     color: '#444',
+  },
+
+  green: {
+    right: 5,
+    width: 200,
+    fontSize: 25,
+    color: '#0f0',
+  },
+
+  amber: {
+    right: 5,
+    width: 200,
+    fontSize: 25,
+    color: '#ffbf00',
+  },
+
+  red: {
+    right: 5,
+    width: 200,
+    fontSize: 25,
+    color: '#f00',
   },
 
 });
