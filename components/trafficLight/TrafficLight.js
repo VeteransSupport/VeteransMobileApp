@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity, Alert, } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, Alert, } from 'react-native';
 import Login from '../login/Login';
 import Logout from '../logout/Logout';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -13,11 +13,7 @@ export default class TrafficLight extends React.Component {
       authenticated: false,
       token: '',
       mood: '',
-      user: "Veteran",
       data: [],
-      userTypeId: '',
-      date: '',
-      time: '',
       dateAndTime: ''
     }
   }
@@ -69,7 +65,15 @@ export default class TrafficLight extends React.Component {
         }
       })
       .then(() => {
-        Alert.alert('Success!', 'Mood sucessfully stored');
+        if(this.state.mood == 'Green')
+        {
+        Alert.alert('Success!', 'Mood sucessfully stored as green.');
+        } else if(this.state.mood == 'Amber')
+        {
+          Alert.alert('Success!', 'Mood sucessfully stored as amber.');
+        } else if(this.state.mood == 'Red'){
+          Alert.alert('Mood successfully stored!', 'Mood sucessfully stored as red. \n\nWe hope you dont need them but here are some numbers to call: \nThe Samaritans - 116 123 \nCombat Stress - 0800 138 1619');
+        }
       })
       .catch((err) => {
         console.log("something went wrong ", err);
@@ -80,39 +84,8 @@ export default class TrafficLight extends React.Component {
   handleButtonClick(colour) {
     this.setState({ mood: colour });
     this.setCurrentDateandTime();
-
     setTimeout(this.updateUserMood, 250);
-  }
 
-  onPressAlertGreen() {
-    Alert.alert("Green selected.", "Thank you for registering your mood today.")
-    this.setState({ mood: 'green' });
-    this.setCurrentDateandTime();
-    this.updateUserMood();
-
-    setTimeout(() => {
-      this.test();
-    }, 200);
-  }
-
-  onPressAlertAmber() {
-    Alert.alert("Amber selected.", "We will notify your contacts of your mood today.")
-    this.setState({ mood: 'amber' });
-    this.setCurrentDateandTime();
-
-    setTimeout(() => {
-      this.test();
-    }, 200);
-  }
-
-  onPressAlertRed() {
-    Alert.alert("Red selected.", "Do you require some help? Crisis number.");
-    this.setState({ mood: 'red' });
-    this.setCurrentDateandTime();
-
-    setTimeout(() => {
-      this.test();
-    }, 200);
   }
 
   setCurrentDateandTime = () => {
@@ -124,24 +97,9 @@ export default class TrafficLight extends React.Component {
       + currentdate.getHours() + ":"
       + currentdate.getMinutes() + ":"
       + currentdate.getSeconds();
-
-    console.log('datetime');
     console.log(datetime);
 
-    var hours = new Date().getHours();
-    var min = new Date().getMinutes();
-    var fullTime = (hours + ':' + min);
-    this.setState({ time: fullTime });
-
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    var fullDate = (date + '-' + month + '-' + year);
-    this.setState({ date: fullDate });
-
-    var fullDateAndTime = (fullDate + ' : ' + fullTime)
-
-    this.setState({ dateAndTime: fullDateAndTime });
+    this.setState({ dateAndTime: datetime });
   }
 
   test = () => {
@@ -158,65 +116,11 @@ export default class TrafficLight extends React.Component {
       if (this.state.mood == 'Red') {
         return (
           <View style={styles.crisisbar}>
-            <Text style={styles.crisisText}>Do you require help? Call this number: 0123456789</Text>
-          </View>
-        )
-      }
-    }
-
-    const VeteranView = () => {
-      if (this.state.user == "Veteran") {
-        return (
-          <View style={styles.page}>
-            {crisis()}
-            <View style={styles.header}>
-              <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
-                <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.adjustTop}>
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton1} onPress={() => this.handleButtonClick('Green')} />
-                <Text style={styles.buttonText}>I'm feeling good and don't need any support right now! I wouldn't mind a social though.</Text>
-              </View>
-
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton2} onPress={() => this.handleButtonClick('Amber')} />
-                <Text style={styles.buttonText}>I'm feeling alright but I've been feeling a bit low or irritable for a couple of days now. I wouldn't mind a chat or a brew.</Text>
-              </View>
-
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.roundButton3} onPress={() => this.handleButtonClick('Red')} />
-                <Text style={styles.buttonText}>If I'm being honest with myself, I need some help. I'm consistantly feeling low or irritable.</Text>
-              </View>
-
-              <View style={styles.footer}>
-                <TouchableOpacity
-                  // onPress={() => this.handleQuizClick(this.props)} // TODO: need to impliment
-                  style={styles.continueBtn}>
-                  <Text
-                    style={styles.continueText}>
-                    Unsure? Take the quiz!
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        )
-      }
-    }
-
-    const AdminView = () => {
-      if (this.state.user !== "Veteran") {
-        return (
-          <View style={styles.page}>
-            <View style={styles.header}>
-              <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
-                <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
-              </TouchableOpacity>
-            </View>
-
+            <Text style={styles.crisisText}>We hope you don't need to use these numbers but just incase:</Text>
+            <Text style={styles.crisisText}>The Samaritans - 116 123</Text>
+            <Text style={styles.crisisText}>Combat Stress - 0800 138 1619</Text>
+            <Text style={styles.crisisText}>111 or 999</Text>
+            <Text style={styles.crisisText2}>Remember You are not alone, people care and it will get better!</Text>
           </View>
         )
       }
@@ -225,8 +129,40 @@ export default class TrafficLight extends React.Component {
     const state = this.state;
     return (
       <View style={styles.page}>
-        {VeteranView()}
-        {AdminView()}
+        {crisis()}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => this.handleLogoClick(this.props)}>
+            <Image source={require('../../assets/urbackupTemporary_Transparent.png')} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.adjustTop}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton1} onPress={() => this.handleButtonClick('Green')} />
+            <Text style={styles.buttonText}>I'm feeling good and don't need any support right now! I wouldn't mind a social though.</Text>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton2} onPress={() => this.handleButtonClick('Amber')} />
+            <Text style={styles.buttonText}>I'm feeling alright but I've been feeling a bit low or irritable for a couple of days now. I wouldn't mind a chat or a brew.</Text>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton3} onPress={() => this.handleButtonClick('Red')} />
+            <Text style={styles.buttonText}>If I'm being honest with myself, I need some help. I'm consistantly feeling low or irritable.</Text>
+          </View>
+
+          <View style={styles.footer}>
+            <TouchableOpacity
+              // onPress={() => this.handleQuizClick(this.props)} // TODO: need to impliment
+              style={styles.continueBtn}>
+              <Text
+                style={styles.continueText}>
+                Unsure? Take the quiz!
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     )
   }
@@ -255,16 +191,25 @@ const styles = StyleSheet.create({
 
   crisisbar: {
     width: "100%",
-    backgroundColor: "red",
-    height: "10%",
+    backgroundColor: '#ADD8E6',
+    height: "20%",
     justifyContent: "center",
   },
 
   crisisText: {
+    paddingTop: 3,
     alignSelf: "center",
-    fontSize: 20,
-    margin: 5,
+    fontSize: 12,
     color: "white",
+  },
+
+  crisisText2: {
+    paddingTop: 3,
+    alignSelf: "center",
+    fontSize: 12,
+    margin: 2,
+    color: "white",
+    fontWeight: "bold"
   },
 
   adjustTop: {
