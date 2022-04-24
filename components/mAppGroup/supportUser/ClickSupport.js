@@ -1,11 +1,11 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { Text, View, SafeAreaView, StyleSheet, Alert, Image, ScrollView, TouchableOpacity } from 'react-native';
-import SupportUser from "./supportUser/SupportUser";
-import EditSupportUser from "./supportUser/EditSupportUser";
+import SupportUser from "./SupportUser";
+import EditSupportUser from "./EditSupportUser";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class ClickCharitySupport extends React.Component {
+export default class ClickSupport extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,13 +37,13 @@ export default class ClickCharitySupport extends React.Component {
     }
 
     verifyUserType = () => {
-        if (this.state.userTypeId === '5' || this.state.userTypeId === '') {
+        if (this.state.userTypeId !== '1' || this.state.userTypeId === '') {
             this.props.navigation.navigate('Home')
         }
     }
 
     getUserTypeId = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
         formData.append('token', token);
 
@@ -69,7 +69,7 @@ export default class ClickCharitySupport extends React.Component {
     }
 
     getSupportUsers = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users?token=' + token;
+        let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users?token=' + token;
 
         fetch(url, {
             method: 'GET',
@@ -96,14 +96,14 @@ export default class ClickCharitySupport extends React.Component {
     }
 
     handleBClick = () => {
-        this.props.handleNextClick(5);
+        this.props.handleNextClick(6);
     }
 
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.handleNextClick(5)}>
-                    <Image style={styles.image} source={require('../../assets/urbackupTemporary_Transparent.png')} />
+                <TouchableOpacity style={styles.imageContainer} onPress={() => this.props.handleNextClick(6)}>
+                    <Image style={styles.image} source={require('../../../assets/urbackupTemporary_Transparent.png')} />
                 </TouchableOpacity>
                 {this.state.page === 'list' &&
                     <View style={styles.container}>
@@ -114,7 +114,7 @@ export default class ClickCharitySupport extends React.Component {
                         </ScrollView>
                         <TouchableOpacity
                             style={styles.backBtn}
-                            onPress={() => this.props.handleNextClick(5)}>
+                            onPress={() => this.props.handleNextClick(6)}>
                             <Text
                                 style={styles.backText}>
                                 BACK

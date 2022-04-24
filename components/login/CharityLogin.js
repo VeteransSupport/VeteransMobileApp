@@ -113,7 +113,7 @@ export default class CharityLogin extends React.Component {
   }
 
   getUserTypeId = async (token) => {
-    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+    let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
     let formData = new FormData();
     formData.append('token', token);
 
@@ -139,7 +139,7 @@ export default class CharityLogin extends React.Component {
   }
 
   handleLoginClick = async () => {
-    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/authenticate';
+    let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/authenticate';
     let formData = new FormData()
     formData.append('username', this.state.email)
     formData.append('password', this.state.password)
