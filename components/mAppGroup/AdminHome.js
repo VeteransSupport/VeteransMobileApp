@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import AppAdminHome from "./AppAdminHome";
 import AddSupport from "./supportUser/AddSupport";
 import ClickSupport from "./supportUser/ClickSupport";
-import Veterans from "./Veterans";
+import Veterans from "./veterans/Veterans";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class Home extends React.Component {
@@ -36,12 +36,16 @@ export default class Home extends React.Component {
 
   verityUserType = () => { 
     if (this.state.userTypeId !== '1' || this.state.userTypeId === '') {
-      this.props.navigation.navigate('Home')
+      this.props.navigation.navigate('Home');
     }
   }
 
   handleLogoClick = () => {
     this.props.navigation.navigate('App Admin');
+  }
+  
+  handleCharities = () => {
+    this.props.navigation.navigate('EditCharityPage');
   }
 
   handleNextClick = (pageNumber) => {
@@ -83,10 +87,7 @@ export default class Home extends React.Component {
       handleLogoClick={this.handleLogoClick} />;
 
     if (this.state.pageNumber === 2) {
-      page = <ClickCharities type={this.state.type}
-        handleNextClick={this.handleNextClick}
-        handleLogoClick={this.handleLogoClick}
-      />;
+      this.handleCharities();
     } else if (this.state.pageNumber === 3) {
       page = <AddSupport type={this.state.type}
         handleNextClick={this.handleNextClick}

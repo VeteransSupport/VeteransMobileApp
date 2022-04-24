@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View, Alert, Button, Image, TextInput, Picker, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class AddCharitySupport extends React.Component {
+export default class AddSupport extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,6 +20,7 @@ export default class AddCharitySupport extends React.Component {
         if (token !== null) {
             this.setState({ token: token });
             this.getUserTypeId(token);
+            this.getUserRegistry(token);
         }
 
         // Setting timeout to wait for
@@ -60,7 +61,7 @@ export default class AddCharitySupport extends React.Component {
             });
     }
 
-    getUserRegistry() {
+    getUserRegistry = async (token) => {
         let url = 'http://unn-w19040060.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
         let formData = new FormData();
         formData.append('token', this.state.token);
