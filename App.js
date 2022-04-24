@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './components/home/Home';
 import AdminHome from './components/mAppGroup/AdminHome';
-//import AdminSupportHome from './components/mAppGroupSupport/AdminSupportHome';
+import SupportHome from './components/mAppGroupSupport/SupportHome';
 import ChangeDetails from './components/changeDetails/ChangeDetails';
 import Contact from './components/contact/Contact';
 import Login from "./components/login/Login";
@@ -37,6 +37,7 @@ function Root() {
       <Drawer.Screen name="Login" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Login} />
       <Drawer.Screen name="Logout" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={Logout} />
       <Drawer.Screen name="App Admin" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={AdminHome} />
+      <Drawer.Screen name="Support Admin" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={SupportHome} />
       <Drawer.Screen name="Charity Lead" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={MainCharityGroup} />
       <Drawer.Screen name="Support User" unmountOnBlur={true} options={{ headerShown: true, unmountOnBlur: true }} component={MainCharityGroupSupport} />
       <Drawer.Screen name="Support User | Change Details" unmountOnBlur={true} options={{ headerShown: false, unmountOnBlur: true }} component={MCGSChangeDetails} />

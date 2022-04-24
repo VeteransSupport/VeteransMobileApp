@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import AppAdminHome from "./AppAdminHome";
+import AppSupportHome from "./AppSupportHome";
 import AddSupport from "./supportUser/AddSupport";
 import ClickSupport from "./supportUser/ClickSupport";
 import Veterans from "./veterans/Veterans";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default class AdminHome extends React.Component {
+export default class SupportHome extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ export default class AdminHome extends React.Component {
       token: false,
       authenticated: false,
       userTypeId: '', 
-      type: 'appAdminHome',
+      type: 'appSupportHome',
       pageNumber: 1,
     }
 
@@ -82,7 +82,7 @@ export default class AdminHome extends React.Component {
 
   render() {
 
-    let page = <AppAdminHome type={this.state.type} AppAdminHome
+    let page = <AppSupportHome type={this.state.type} AppSupportHome
       handleNextClick={this.handleNextClick}
       handleLogoClick={this.handleLogoClick} />;
 
@@ -99,12 +99,12 @@ export default class AdminHome extends React.Component {
         handleLogoClick={this.handleLogoClick}
       />;
     } else if (this.state.pageNumber === 5) {
-      page = <Veterans type={this.state.type} AppAdminHome
+      page = <Veterans type={this.state.type} AppSupportHome
         handleNextClick={this.handleNextClick}
         handleLogoClick={this.handleLogoClick}
       />;
     } else if (this.state.pageNumber === 6) {
-      page = <AppAdminHome type={this.state.type} AppAdminHome
+      page = <AppSupportHome type={this.state.type} AppSupportHome
         handleNextClick={this.handleNextClick}
         handleLogoClick={this.handleLogoClick}
       />;
