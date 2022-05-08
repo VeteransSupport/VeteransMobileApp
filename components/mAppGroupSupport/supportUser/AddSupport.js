@@ -39,7 +39,7 @@ export default class AddSupport extends React.Component {
     }
 
     getUserTypeId = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://urbackup.atwebpages.com/api/user';
         let formData = new FormData();
         formData.append('token', token);
 
@@ -67,7 +67,7 @@ export default class AddSupport extends React.Component {
     }
 
     getUserRegistry = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://urbackup.atwebpages.com/api/user';
         let formData = new FormData();
         formData.append('token', this.state.token);
         formData.append('request', 'registry');
@@ -94,7 +94,7 @@ export default class AddSupport extends React.Component {
     }
 
     getCharities = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities';
+        let url = 'http://urbackup.atwebpages.com/api/charities';
 
         fetch(url, {
             method: 'GET',
@@ -117,7 +117,7 @@ export default class AddSupport extends React.Component {
     }
 
     createNewSupportUser() {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_support_users';
+        let url = 'http://urbackup.atwebpages.com/api/edit_support_users';
         let formData = new FormData();
         formData.append('token', this.state.token);
         formData.append('request', 'add');

@@ -55,7 +55,7 @@ export default class CharitiesList extends React.Component {
   }
 
   getUserTypeId = async (token) => {
-    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+    let url = 'http://urbackup.atwebpages.com/api/user';
     let formData = new FormData();
     formData.append('token', token);
 
@@ -81,7 +81,7 @@ export default class CharitiesList extends React.Component {
   }
 
   getData() {
-    return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
+    return fetch('http://urbackup.atwebpages.com/api/charities')
       .then((response) => response.json())
       .then((data) => {
         this.setState({ data: data.results });

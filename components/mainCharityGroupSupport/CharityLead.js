@@ -16,7 +16,7 @@ export default class CharityLead extends React.Component {
   }
 
   myCharityGroup() {
-    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charity_lead?token=' + this.props.token;
+    let url = 'http://urbackup.atwebpages.com/api/charity_lead?token=' + this.props.token;
 
     fetch(url, {
       method: 'GET',
