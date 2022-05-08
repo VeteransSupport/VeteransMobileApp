@@ -31,7 +31,7 @@ export default class SupportHome extends React.Component {
     verityUserType = () => { }
 
     getUserTypeId = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://urbackup.atwebpages.com/api/user';
         let formData = new FormData();
         formData.append('token', token);
 
@@ -59,7 +59,7 @@ export default class SupportHome extends React.Component {
     }
 
     getData() {
-        return fetch('http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/charities')
+        return fetch('http://urbackup.atwebpages.com/api/charities')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({ data: responseJson.results });

@@ -43,7 +43,7 @@ export default class ClickSupport extends React.Component {
     }
 
     getUserTypeId = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/user';
+        let url = 'http://urbackup.atwebpages.com/api/user';
         let formData = new FormData();
         formData.append('token', token);
 
@@ -69,7 +69,7 @@ export default class ClickSupport extends React.Component {
     }
 
     getSupportUsers = async (token) => {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users?token=' + token;
+        let url = 'http://urbackup.atwebpages.com/api/support_users?token=' + token;
 
         fetch(url, {
             method: 'GET',

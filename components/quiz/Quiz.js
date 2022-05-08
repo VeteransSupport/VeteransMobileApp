@@ -42,7 +42,7 @@ export default class Quiz extends React.Component {
   }
 
   getQuizQuestions() {
-    const url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/quiz';
+    const url = 'http://urbackup.atwebpages.com/api/quiz';
 
     fetch(url)
       .then((response) => {
@@ -158,7 +158,7 @@ export default class Quiz extends React.Component {
   }
 
   uploadResults() {
-    let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/update_user';
+    let url = 'http://urbackup.atwebpages.com/api/update_user';
 
     var currentdate = new Date();
     var datetime = currentdate.getDate() + "/"

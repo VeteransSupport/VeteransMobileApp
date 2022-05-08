@@ -18,7 +18,7 @@ export default class EditSupportUser extends React.Component {
     }
 
     getSupportUser() {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/support_users?token=' + this.props.token + '&id=' + this.props.supportUserID;
+        let url = 'http://urbackup.atwebpages.com/api/support_users?token=' + this.props.token + '&id=' + this.props.supportUserID;
 
         fetch(url)
             .then((response) => {
@@ -44,7 +44,7 @@ export default class EditSupportUser extends React.Component {
     }
 
     removeSupportUser() {
-        let url = 'http://unn-w18014333.newnumyspace.co.uk/veterans_app/dev/VeteransAPI/api/edit_support_users';
+        let url = 'http://urbackup.atwebpages.com/api/edit_support_users';
         let formData = new FormData();
         formData.append('token', this.props.token);
         formData.append('request', 'delete');
