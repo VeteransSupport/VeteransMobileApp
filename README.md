@@ -17,26 +17,3 @@ _**NOTE:** *Some of these commands may require admin permissions, so make sure t
 4. Press **d** when the menu appears in thge terminal window which will open developer tools in your default browser
 5. Change the **CONNECTION** type to tunnel.
 6. Scan the QR code on the **Expo Go** app on your phone.
-
-
-# User Accounts
-
-**Email:** user@example.com \
-**Password:** test
-
-**Email:** admin \
-**Password:** admin
-
-## GitHub Repositories
-
-**Organisation:**
-[VeteransSupport GitHub Organisation](https://github.com/VeteransSupport) 
-
-**Frontend Repository:**
-[VeteransMobileApp](https://github.com/VeteransSupport/VeteransMobileApp)
-
-**Backend Repository:**
-[VeteransAPI](https://github.com/VeteransSupport/VeteransAPI)
-
-**Database Repository:**
-[VeteransDatabase](https://github.com/VeteransSupport/VeteransDatabase)
